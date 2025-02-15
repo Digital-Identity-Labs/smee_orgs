@@ -1,0 +1,81 @@
+defmodule SmeeOrgs.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :smee_orgs,
+      version: "0.1.0",
+      elixir: "~> 1.14",
+      start_permanent: Mix.env() == :prod,
+      description: "SAML metadata Organization extension for Smee",
+      package: package(),
+      name: "SmeeOrgs",
+      source_url: "https://github.com/Digital-Identity-Labs/smee_orgs",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      test_coverage: [
+        tool: ExCoveralls
+      ],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
+      docs: [
+        main: "readme",
+        # logo: "path/to/logo.png",
+        extras: ["README.md", "LICENSE"]
+      ],
+      deps: deps(),
+      compilers: Mix.compilers() ++ [:rambo], # Needed until issue fixed in Rambo
+      elixirc_paths: elixirc_paths(Mix.env)
+    ]
+  end
+
+  # Run "mix help compile.app" to learn about applications.
+  def application do
+    [
+      extra_applications: [:logger]
+    ]
+  end
+
+  # Run "mix help deps" to learn about dependencies.
+  defp deps do
+    [
+      # {:smee, ">0.4.0"},
+      {:smee, ">= 0.5.1"},
+      {:ror, "~> 0.1.0"},
+      {:sweet_xml, "~> 0.7"},
+      {:xmerl_xml_indent, "~> 0.2.0"},
+      {:memoize, "~> 1.4"},
+      {:jason, "~> 1.4"},
+      {:zarex, "~> 1.0"},
+      {:iteraptor, "~> 1.14"},
+
+      {:apex, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.14 and >= 0.14.4", only: [:dev, :test]},
+      {:benchee, "~> 1.3", only: [:dev, :test]},
+      {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+      {:earmark, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
+      {:doctor, "~> 0.21", only: :dev, runtime: false},
+      {:ex_json_schema, "~> 0.10.2", only: :test, runtime: false},
+    ]
+  end
+
+  defp package() do
+    [
+      licenses: ["Apache-2.0"],
+      links: %{
+        "GitHub" => "https://github.com/Digital-Identity-Labs/smee_orgs"
+      }
+    ]
+  end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support", "priv"]
+  defp elixirc_paths(_), do: ["lib", "priv"]
+
+end

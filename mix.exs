@@ -52,6 +52,7 @@ defmodule SmeeOrgs.MixProject do
       {:jason, "~> 1.4"},
       {:zarex, "~> 1.0"},
       {:iteraptor, "~> 1.14"},
+      {:domainatrex, "~> 3.0"},
 
       {:apex, "~> 1.2", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},

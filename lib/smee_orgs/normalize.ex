@@ -20,7 +20,7 @@ defmodule SmeeOrgs.Normalize do
     |> NoidOverrides.builtin()
   end
 
-  def base_domain(nowt) when is_nil(nowt) or nowt == "" do
+  def base_domain(nowt) when nowt in [nil, "", "unspecified"] do
     nil
   end
 

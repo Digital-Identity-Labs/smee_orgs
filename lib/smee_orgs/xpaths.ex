@@ -6,31 +6,10 @@ defmodule SmeeOrgs.XPaths do
 
   alias SmeeLogos.Logo
 
-  @org_xmap [
-    organization_names: [
-      ~x"//md:Organization/md:OrganizationName"le,
-      lang: ~x"string(@xml:lang)"s,
-      text: ~x"./text()"s],
-    organization_displaynames: [
-      ~x"//md:Organization/md:OrganizationDisplayName"le,
-      lang: ~x"string(@xml:lang)"s,
-      text: ~x"./text()"s
-    ],
-    organization_urls: [
-      ~x"//md:Organization/md:OrganizationURL"le,
-      lang: ~x"string(@xml:lang)"s,
-      url: ~x"./text()"s
-    ],
-    registration_authority: [
-      ~x"//md:Extensions/mdrpi:RegistrationInfo"le,
-      authority: ~x"string(@registrationAuthority)"s
-    ]
-  ]
-
   @spec extract_org(xdoc :: tuple()) :: map()
   def extract_org(xdoc) do
     extracted = xdoc
-                |> SweetXml.xmap(@org_xmap)
+                |> SweetXml.xmap(org_xmap())
     %{
       names: ml_text_map(extracted.organization_names, :text),
       displaynames: ml_text_map(extracted.organization_displaynames, :text),
@@ -45,6 +24,30 @@ defmodule SmeeOrgs.XPaths do
     ml_list
     |> Enum.map(fn h -> {h[:lang], h[vk]}  end)
     |> Map.new()
+  end
+
+  defp org_xmap do
+    [
+      organization_names: [
+        ~x"//md:Organization/md:OrganizationName"le,
+        lang: ~x"string(@xml:lang)"s,
+        text: ~x"./text()"s
+      ],
+      organization_displaynames: [
+        ~x"//md:Organization/md:OrganizationDisplayName"le,
+        lang: ~x"string(@xml:lang)"s,
+        text: ~x"./text()"s
+      ],
+      organization_urls: [
+        ~x"//md:Organization/md:OrganizationURL"le,
+        lang: ~x"string(@xml:lang)"s,
+        url: ~x"./text()"s
+      ],
+      registration_authority: [
+        ~x"//md:Extensions/mdrpi:RegistrationInfo"le,
+        authority: ~x"string(@registrationAuthority)"s
+      ]
+    ]
   end
 
   def extract_ra(%{authority: auth}) do

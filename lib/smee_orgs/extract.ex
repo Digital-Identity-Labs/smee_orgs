@@ -6,12 +6,12 @@ defmodule SmeeOrgs.Extract do
   alias Smee.Entity
   alias Smee.Metadata
   alias SmeeOrgs.XPaths
+  alias SmeeOrgs.Utils
   alias SmeeOrgs.Organization
 
-  def select_name(names) do
+  def select_name(names, lang \\ "en") do
     names
-    |> Enum.map(fn {lang, v} -> v end)
-    |> List.first()
+    |> Utils.select_lang(lang)
   end
 
   def select_domain(domains) do

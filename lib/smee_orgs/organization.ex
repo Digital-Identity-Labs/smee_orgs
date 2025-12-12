@@ -2,6 +2,7 @@ defmodule SmeeOrgs.Organization do
 
   alias __MODULE__
   alias SmeeOrgs.Normalize
+  alias SmeeOrgs.Utils
 
   defstruct [
     :noid,
@@ -12,32 +13,48 @@ defmodule SmeeOrgs.Organization do
     :urls,
     :ror,
     :logo_url,
+    :location,
+    :wikipedia,
     :country,
+    domains: [],
     tags: [],
-    types: [],
+    type: :unknown,
     registrars: [],
     federations: []
   ]
 
-
-
   def new(name_id, domain, data) do
+
+    base_domain = SmeeOrgs.Normalize.base_domain(domain)
 
     %Organization{
       noid: Normalize.noid(name_id),
-      base_domain: SmeeOrgs.Normalize.base_domain(domain),
+      base_domain: base_domain,
+      domains: [base_domain],
       names: data[:names],
       displaynames: data[:displaynames],
+      urls: data[:urls],
+      location: nil,
       logo_url: data[:logo_url],
       tags: if(data[:tags], do: data[:tags], else: []),
       ror: data[:ror],
       country: data[:country],
       faux: if(data[:faux], do: !!data[:faux], else: false),
-      types: if(data[:types], do: data[:types], else: []),
+      type: if(data[:type], do: data[:type], else: :unknown),
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),
     }
 
+  end
+
+  def name(org, lang \\ "en") do
+    Map.get(org, :names, %{})
+    |> Utils.select_lang(lang)
+  end
+
+  def displayname(org, lang \\ "en") do
+    Map.get(org, :displaynames, %{})
+    |> Utils.select_lang(lang)
   end
 
 end

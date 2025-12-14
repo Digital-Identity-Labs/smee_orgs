@@ -6,11 +6,12 @@ defmodule SmeeOrgs.XPaths do
 
   alias SmeeLogos.Logo
 
-  @spec extract_org(xdoc :: tuple()) :: map()
-  def extract_org(xdoc) do
+  @spec extract_org(entity_id :: binary(), xdoc :: tuple()) :: map()
+  def extract_org(entity_id, xdoc) do
     extracted = xdoc
                 |> SweetXml.xmap(org_xmap())
     %{
+      entity_uris: [entity_id],
       names: ml_text_map(extracted.organization_names, :text),
       displaynames: ml_text_map(extracted.organization_displaynames, :text),
       urls: ml_text_map(extracted.organization_urls, :url),

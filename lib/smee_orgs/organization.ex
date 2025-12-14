@@ -16,6 +16,7 @@ defmodule SmeeOrgs.Organization do
     :location,
     :wikipedia,
     :country,
+    entity_uris: [],
     domains: [],
     tags: [],
     type: :unknown,
@@ -30,6 +31,7 @@ defmodule SmeeOrgs.Organization do
     %Organization{
       noid: Normalize.noid(name_id),
       base_domain: base_domain,
+      entity_uris: if(data[:entity_uris], do: data[:entity_uris], else: []),
       domains: Utils.extract_domains(data[:urls]),
       names: data[:names],
       displaynames: data[:displaynames],

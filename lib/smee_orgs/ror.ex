@@ -27,7 +27,7 @@ defmodule SmeeOrgs.ROR do
   defp apply_ror_overlay(ror, org) do
     overlay = %{
       ror: ror.id,
-      domains: Utils.add_to_unique_list(org.tags, ror.domains),
+      domains: Utils.add_to_unique_list(org.domains, ror.domains),
       country: country(ror),
       location: location(ror),
       type: type(ror),
@@ -57,8 +57,6 @@ defmodule SmeeOrgs.ROR do
   defp type(%{types: types}) do
 
     types = List.delete(types, "funder")
-
-    Apex.ap(types)
 
     cond do
       :education in types -> :education

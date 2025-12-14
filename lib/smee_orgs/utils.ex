@@ -17,11 +17,49 @@ defmodule SmeeOrgs.Utils do
     |> List.first()
   end
 
+  def extract_domains(nowt) when nowt in [nil, "", "unspecified"] do
+    []
+  end
+
+  def extract_domains("http" <> _ = url) do
+    bits = URI.new!(url)
+    bits.host || []
+  end
+
+  def extract_domains(urls) when is_list(urls) do
+    Enum.map(urls, fn url -> extract_domains(url) end)
+    |> Enum.uniq()
+  end
+
+  def extract_domains(urls) when is_map(urls) do
+    Map.values(urls)
+    |> Enum.map(fn url -> extract_domains(url) end)
+    |> Enum.uniq()
+  end
+
+  def set_if_empty(current, possible) when is_nil(current) or current == "" or current == :unknown do
+    possible
+  end
+
+  def set_if_empty(current, possible) do
+    current
+  end
+
   def add_to_unique_list(list, item) do
     [item | list]
     |> List.flatten()
     |> Enum.sort()
     |> Enum.uniq()
+  end
+
+  def merge_lang_maps(original, new) do
+    Map.merge(
+      original,
+      new,
+      fn _k, v1, _v2 ->
+        v1
+      end
+    )
   end
 
 end

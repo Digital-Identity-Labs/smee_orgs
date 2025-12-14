@@ -30,7 +30,7 @@ defmodule SmeeOrgs.Organization do
     %Organization{
       noid: Normalize.noid(name_id),
       base_domain: base_domain,
-      domains: [base_domain],
+      domains: Utils.extract_domains(data[:urls]),
       names: data[:names],
       displaynames: data[:displaynames],
       urls: data[:urls],

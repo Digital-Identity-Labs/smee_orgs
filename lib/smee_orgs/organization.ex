@@ -7,7 +7,6 @@ defmodule SmeeOrgs.Organization do
   defstruct [
     :noid,
     :base_domain,
-    :faux,
     :names,
     :displaynames,
     :urls,
@@ -41,7 +40,6 @@ defmodule SmeeOrgs.Organization do
       tags: if(data[:tags], do: data[:tags], else: []),
       ror: data[:ror],
       country: data[:country],
-      faux: if(data[:faux], do: !!data[:faux], else: false),
       type: if(data[:type], do: data[:type], else: :unknown),
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),

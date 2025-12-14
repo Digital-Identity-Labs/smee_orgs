@@ -26,7 +26,7 @@ defmodule SmeeOrgs.Extract do
   def stream(stream, options) when is_struct(stream, Stream) or is_function(stream) do
 
     stream
-    |> Stream.map(fn e -> XPaths.extract_org(e.uri, Entity.xdoc(e)) end)
+    |> Stream.map(fn e -> XPaths.extract_org(e.uri, e.metadata_uri, Entity.xdoc(e)) end)
     |> Stream.map(fn md_org ->
       Organization.new(select_name(md_org[:names]), select_domain(md_org[:urls]), md_org)
     end)

@@ -10,18 +10,20 @@ defmodule SmeeOrgs.Process do
   def uniq(enum, _opts \\ []) do
     enum
     |> Enum.uniq_by(fn org -> org.noid end)
+  #  |> Enum.map(fn org -> %{org | tags: Utils.add_to_unique_list(org.tags, [:uniq])} end)
   end
 
-  def merge(enum, opts \\ []) do
+  def merge(enum, opts \\ [action: :merge]) do
     base_org = Enum.at(enum, 0)
-    enum
-    |> Enum.reduce(base_org, fn org, acc -> merge_organizations(acc, org, opts) end)
+    actions = [opts[:action]]
+    merged = Enum.reduce(enum, base_org, fn org, acc -> merge_organizations(acc, org, opts) end)
+    %{merged | tags: Utils.add_to_unique_list(merged.tags, actions)}
   end
 
   def aggregate(enum, _opts \\ []) do
     enum
     |> Enum.group_by(fn org -> org.noid end)
-    |> Enum.map(fn {noid, orgs} -> merge(orgs) end)
+    |> Enum.map(fn {noid, orgs} -> merge(orgs, action: :aggregate) end)
   end
 
   #################
@@ -41,7 +43,6 @@ defmodule SmeeOrgs.Process do
       type: Utils.set_if_empty(base.type, extra.type),
       registrars: Utils.add_to_unique_list(base.registrars, extra.registrars),
       federations: Utils.add_to_unique_list(base.federations, extra.federations)
-
     }
   end
 

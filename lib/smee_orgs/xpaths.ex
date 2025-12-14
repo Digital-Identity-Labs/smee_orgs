@@ -4,18 +4,23 @@ defmodule SmeeOrgs.XPaths do
 
   import Smee.Sigils
 
-  alias SmeeLogos.Logo
+  alias SmeeOrgs.Utils
 
-  @spec extract_org(entity_id :: binary(), xdoc :: tuple()) :: map()
-  def extract_org(entity_id, xdoc) do
+  @spec extract_org(entity_uri :: binary(), metadata_uri :: binary(), xdoc :: tuple()) :: map()
+  def extract_org(entity_uri, metadata_uri, xdoc) do
     extracted = xdoc
                 |> SweetXml.xmap(org_xmap())
+
+    registrars = [extract_ra(List.first(List.wrap(extracted.registration_authority)))]
+    federations = Utils.add_to_unique_list(registrars, [metadata_uri])
+
     %{
-      entity_uris: [entity_id],
+      entity_uris: [entity_uri],
       names: ml_text_map(extracted.organization_names, :text),
       displaynames: ml_text_map(extracted.organization_displaynames, :text),
       urls: ml_text_map(extracted.organization_urls, :url),
-      reg_auth: extract_ra(List.first(List.wrap(extracted.registration_authority)))
+      registrars: registrars,
+      federations: federations
     }
 
   end

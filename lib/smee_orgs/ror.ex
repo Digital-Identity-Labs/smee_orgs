@@ -1,5 +1,6 @@
 defmodule SmeeOrgs.ROR do
 
+  alias SmeeOrgs.Normalize
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Utils
 
@@ -25,13 +26,20 @@ defmodule SmeeOrgs.ROR do
   end
 
   defp apply_ror_overlay(ror, org) do
+
+    website = website(ror)
+    base_domain = if website, do: Normalize.base_domain(website), else: org.base_domain
+
     overlay = %{
       ror: ror.id,
+      base_domain: base_domain,
       domains: Utils.add_to_unique_list(org.domains, ror.domains),
+      displaynames: Utils.merge_lang_maps(org.displaynames, names(ror)),
       country: country(ror),
       location: location(ror),
+      wikipedia: wikipedia(ror),
       type: type(ror),
-      tags: Utils.add_to_unique_list(org.tags, [:ror, :overlay])
+      tags: Utils.add_to_unique_list(org.tags, [:ror])
     }
 
     struct!(org, overlay)
@@ -74,6 +82,25 @@ defmodule SmeeOrgs.ROR do
 
   defp type(_) do
     :other
+  end
+
+  defp names(ror) do
+    Map.get(ror, :names, [])
+    |> Enum.filter(fn name -> :label in name.types end)
+    |> Enum.map(fn name -> {name.lang, name.value} end)
+    |> Map.new()
+  end
+
+  defp wikipedia(ror) do
+    Map.get(ror, :links, [])
+    |> Enum.find(%{value: nil}, fn link -> link.type == :wikipedia end)
+    |> Map.get(:value)
+  end
+
+  defp website(ror) do
+    Map.get(ror, :links, [])
+    |> Enum.find(%{value: nil}, fn link -> link.type == :website end)
+    |> Map.get(:value)
   end
 
 end

@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Utils do
 
+  alias SmeeOrgs.TldToCc
+
   def select_lang(map, lang \\ "en") do
     select_lang_pref(map, lang) || select_lang_default(map) || select_lang_fallback(map)
   end
@@ -60,6 +62,10 @@ defmodule SmeeOrgs.Utils do
         v1
       end
     )
+  end
+
+  def domain_to_country(domain) do
+    TldToCc.domain_to_country(domain)
   end
 
 end

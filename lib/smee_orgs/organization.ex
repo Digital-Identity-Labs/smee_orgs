@@ -39,7 +39,7 @@ defmodule SmeeOrgs.Organization do
       logo_url: data[:logo_url],
       tags: if(data[:tags], do: data[:tags], else: []),
       ror: data[:ror],
-      country: data[:country],
+      country: if(data[:country], do: data[:country], else: Utils.domain_to_country(base_domain)),
       type: if(data[:type], do: data[:type], else: :unknown),
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),

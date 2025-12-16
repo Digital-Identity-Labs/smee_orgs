@@ -4,6 +4,7 @@ defmodule SmeeOrgs.Organization do
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
 
+  @derive Jason.Encoder
   defstruct [
     :noid,
     :base_domain,

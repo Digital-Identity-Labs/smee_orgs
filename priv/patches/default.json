@@ -1,0 +1,39 @@
+[
+  {
+    "when": "leeds_university",
+    "patch": [
+
+    ],
+    "priority": 100
+  },
+  {
+    "when": "bristol_university",
+    "patch": [
+      {"path": "/country", "value": "GB", "op": "replace"}
+    ],
+    "priority": 100
+  },
+  {
+    "when": "bristol_university",
+    "patch": [
+      {"path": "/country", "value": "UK", "op": "replace"}
+    ],
+    "priority": 100
+  },
+  {
+    "when": "new_era_education",
+    "patch": [
+      {"path": "/country", "value": "ZZ", "op": "replace"}
+    ],
+    "priority": 100
+  },
+  {
+    "when": "uva_universidade_veiga_de_almeida",
+    "patch": [
+      {"path": "/logo_url", "value": "https://example.com/logo", "op": "replace"}
+    ],
+    "priority": 100
+  }
+]
+
+

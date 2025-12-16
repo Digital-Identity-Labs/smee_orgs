@@ -42,8 +42,30 @@ defmodule SmeeOrgs.Process do
       country: Utils.set_if_empty(base.country, extra.country),
       type: Utils.set_if_empty(base.type, extra.type),
       registrars: Utils.add_to_unique_list(base.registrars, extra.registrars),
-      federations: Utils.add_to_unique_list(base.federations, extra.federations)
+      federations: Utils.add_to_unique_list(base.federations, extra.federations),
+      location: Utils.set_if_empty(base.location, extra.location),
+      wikipedia: Utils.set_if_empty(base.wikipedia, extra.wikipedia),
+      entity_uris: Utils.add_to_unique_list(base.entity_uris, extra.entity_uris)
     }
   end
+
+  """
+      :noid,
+      :base_domain,
+      :names,
+      :displaynames,
+      :urls,
+      :ror,
+      :logo_url,
+      :location,
+      :wikipedia,
+      :country,
+      entity_uris: [],
+      domains: [],
+      tags: [],
+      type: :unknown,
+      registrars: [],
+      federations: []
+"""
 
 end

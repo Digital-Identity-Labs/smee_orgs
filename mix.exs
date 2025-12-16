@@ -47,12 +47,9 @@ defmodule SmeeOrgs.MixProject do
       {:smee, ">= 0.5.1"},
       {:ror, "~> 0.1.0"},
       {:sweet_xml, "~> 0.7"},
-      {:xmerl_xml_indent, "~> 0.2.0"},
-      {:memoize, "~> 1.4"},
       {:jason, "~> 1.4"},
-      {:zarex, "~> 1.0"},
-      {:iteraptor, "~> 1.14"},
       {:domainatrex, "~> 3.0"},
+      {:jsonpatch, "~> 2.3"},
 
       {:apex, "~> 1.2", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},

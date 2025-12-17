@@ -1,38 +1,43 @@
 [
   {
-    "when": "leeds_university",
-    "patch": [
-
-    ],
-    "priority": 100
-  },
-  {
-    "when": "bristol_university",
-    "patch": [
-      {"path": "/country", "value": "GB", "op": "replace"}
-    ],
-    "priority": 100
-  },
-  {
-    "when": "bristol_university",
-    "patch": [
-      {"path": "/country", "value": "UK", "op": "replace"}
-    ],
-    "priority": 100
-  },
-  {
     "when": "new_era_education",
     "patch": [
-      {"path": "/country", "value": "ZZ", "op": "replace"}
-    ],
-    "priority": 100
+      {"path": "/type", "value": "company", "op": "replace"}
+    ]
   },
   {
-    "when": "uva_universidade_veiga_de_almeida",
+    "when": "censipam_sistema_de_protecao_da_amazonia",
     "patch": [
-      {"path": "/logo_url", "value": "https://example.com/logo", "op": "replace"}
-    ],
-    "priority": 100
+      {"path": "/type", "value": "government", "op": "replace"}
+    ]
+  },
+  {
+    "when": "kojja_secondary_school",
+    "patch": [
+      {"path": "/type", "value": "education", "op": "replace"}
+    ]
+  },
+  {
+    "when": "danubius_ri",
+    "patch": [
+      {"path": "/type", "value": "facility", "op": "replace"}
+    ]
+  },
+  {
+    "when": "membership_solutions",
+    "patch": [
+      {"path": "/base_domain", "value": "ukmsl.com", "op": "replace"},
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/urls/en", "value": "https://www.ukmsl.com", "op": "replace"}
+    ]
+  },
+  {
+    "when": "oclc_uk",
+    "patch": [
+      {"path": "/type", "value": "nonprofit", "op": "replace"},
+      {"path": "/logo_url", "value": "https://upload.wikimedia.org/wikipedia/commons/1/1b/OCLC_logo.svg", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/OCLC", "op": "replace"}
+    ]
   }
 ]
 

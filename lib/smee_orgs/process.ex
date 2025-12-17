@@ -10,7 +10,7 @@ defmodule SmeeOrgs.Process do
   def uniq(enum, _opts \\ []) do
     enum
     |> Enum.uniq_by(fn org -> org.noid end)
-  #  |> Enum.map(fn org -> %{org | tags: Utils.add_to_unique_list(org.tags, [:uniq])} end)
+    #  |> Enum.map(fn org -> %{org | tags: Utils.add_to_unique_list(org.tags, [:uniq])} end)
   end
 
   def merge(enum, opts \\ [action: :merge]) do
@@ -24,6 +24,10 @@ defmodule SmeeOrgs.Process do
     enum
     |> Enum.group_by(fn org -> org.noid end)
     |> Enum.map(fn {noid, orgs} -> merge(orgs, action: :aggregate) end)
+  end
+
+  def dump(enum, filename \\ "orgs_dump.json", _opts \\ []) when is_list(enum) do
+    File.write("dump.json", Jason.encode!(enum))
   end
 
   #################
@@ -50,22 +54,22 @@ defmodule SmeeOrgs.Process do
   end
 
   """
-      :noid,
-      :base_domain,
-      :names,
-      :displaynames,
-      :urls,
-      :ror,
-      :logo_url,
-      :location,
-      :wikipedia,
-      :country,
-      entity_uris: [],
-      domains: [],
-      tags: [],
-      type: :unknown,
-      registrars: [],
-      federations: []
-"""
+        :noid,
+        :base_domain,
+        :names,
+        :displaynames,
+        :urls,
+        :ror,
+        :logo_url,
+        :location,
+        :wikipedia,
+        :country,
+        entity_uris: [],
+        domains: [],
+        tags: [],
+        type: :unknown,
+        registrars: [],
+        federations: []
+  """
 
 end

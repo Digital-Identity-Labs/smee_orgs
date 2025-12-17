@@ -24,6 +24,11 @@ defmodule SmeeOrgs.Patch do
     patch!(enum, fetch!(location))
   end
 
+  def diff!(org1, org2) do
+    patches = Jsonpatch.diff(org1, org2, keys: :atoms)
+    %{@patch_defaults | patch: patches}
+  end
+
   def fetch!("http" <> _ = location) do
     Client.get!(location)
   end
@@ -51,9 +56,9 @@ defmodule SmeeOrgs.Patch do
 
     matching_patches = Map.get(patches, "noid", %{})
                        |> Map.get(org.noid, [])
-    |> Enum.map(fn patch -> patch["patch"] end)
+                       |> Enum.map(fn patch -> patch["patch"] end)
 
-      Enum.reduce(matching_patches, org, fn patch, acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end)
+    Enum.reduce(matching_patches, org, fn patch, acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end)
 
   end
 

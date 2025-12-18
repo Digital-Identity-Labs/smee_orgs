@@ -1,5 +1,6 @@
 defmodule SmeeOrgs do
 
+  alias SmeeOrgs.Patch
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Extract
   alias SmeeOrgs.ROR
@@ -45,7 +46,7 @@ defmodule SmeeOrgs do
 
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
   def patch(enum, opts \\ []) do
-    enum
+    Patch.patch!(enum, opts)
   end
 
 end

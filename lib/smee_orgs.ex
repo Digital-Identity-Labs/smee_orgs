@@ -54,4 +54,9 @@ defmodule SmeeOrgs do
     Patch.patch!(enum, source, opts)
   end
 
+  ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
+  def dump(enum, filename \\ "orgs_dump.json", opts \\ []) do
+    Process.dump(enum, filename, opts)
+  end
+
 end

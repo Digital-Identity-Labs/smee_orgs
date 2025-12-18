@@ -26,7 +26,7 @@ defmodule SmeeOrgs.Process do
     |> Enum.map(fn {noid, orgs} -> merge(orgs, action: :aggregate) end)
   end
 
-  def dump(enum, filename \\ "orgs_dump.json", _opts \\ []) when is_list(enum) do
+  def dump(enum, filename, _opts \\ []) when is_list(enum) do
     File.write(filename, Jason.encode!(enum))
   end
 

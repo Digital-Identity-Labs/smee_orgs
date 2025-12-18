@@ -28,11 +28,13 @@
     "patch": [
       {"path": "/base_domain", "value": "ukmsl.com", "op": "replace"},
       {"path": "/type", "value": "company", "op": "replace"},
-      {"path": "/urls/en", "value": "https://www.ukmsl.com", "op": "replace"}
+      {"path": "/urls", "value": {
+        "en": "https://www.ukmsl.com"
+      }, "op": "add"}
     ]
   },
   {
-    "when": "oclc_uk",
+    "when": "oclc",
     "patch": [
       {"path": "/type", "value": "nonprofit", "op": "replace"},
       {"path": "/logo_url", "value": "https://upload.wikimedia.org/wikipedia/commons/1/1b/OCLC_logo.svg", "op": "replace"},

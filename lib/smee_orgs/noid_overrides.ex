@@ -1,5 +1,13 @@
 defmodule SmeeOrgs.NoidOverrides do
 
+  def builtin("online_computer_library_center" <> _) do
+    "oclc"
+  end
+
+  def builtin("oclc_" <> _) do
+    "oclc"
+  end
+
   def builtin("consortium_garr") do
     "garr"
   end

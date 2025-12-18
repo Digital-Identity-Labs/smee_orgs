@@ -157,7 +157,6 @@ defmodule SmeeOrgs.TldToCc do
     "ro" => "RO",
     "gf" => "GF",
     "ls" => "LS",
-    "nl" => "BQ",
     "uk" => "GB",
     "sr" => "SR",
     "ar" => "AR",

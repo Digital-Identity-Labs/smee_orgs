@@ -27,7 +27,7 @@ defmodule SmeeOrgs.Process do
   end
 
   def dump(enum, filename \\ "orgs_dump.json", _opts \\ []) when is_list(enum) do
-    File.write("dump.json", Jason.encode!(enum))
+    File.write(filename, Jason.encode!(enum))
   end
 
   #################

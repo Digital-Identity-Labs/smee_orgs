@@ -4,7 +4,7 @@ defmodule SmeeOrgs.Normalize do
 
   @punctuation [",", ".", "-", "'", "(", ")", "]", "[", ":", "+", "/", "\\", "’"]
   @company_name_prefixes ~r/\Athe /
-  @company_name_suffixes ~r/\s(inc|ltd|llc|inc|corp|plc|limited|co|sro|ale|sa|ag|bv|nv|ltee|bv|gmbh|sia|pte|pty|as|co ltd|identity_provider|idp|shibboleth|limited, the|the|.com|.net|.org)\Z/
+  @company_name_suffixes ~r/\s(inc|ltd|llc|inc|oy|corp|plc|limited|co|sro|ale|sa|ag|bv|nv|ltee|bv|gmbh|sia|pte|pty|as|co ltd|identity_provider|idp|shibboleth|limited, the|the|.com|.net|.org)\Z/
 
 
   def noid(name) do

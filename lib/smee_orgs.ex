@@ -45,8 +45,13 @@ defmodule SmeeOrgs do
   end
 
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
-  def patch(enum, opts \\ []) do
-    Patch.patch!(enum, opts)
+  def patch!(enum) do
+    Patch.patch!(enum, Patch.default_patch_location())
+  end
+
+  ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
+  def patch!(enum, source, opts \\ []) do
+    Patch.patch!(enum, source, opts)
   end
 
 end

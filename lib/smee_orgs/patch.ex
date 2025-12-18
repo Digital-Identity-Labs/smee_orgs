@@ -7,9 +7,6 @@ defmodule SmeeOrgs.Patch do
 
   alias SmeeOrgs.Client
 
-  def patch!(enum) do
-    patch!(enum, default_patch_location())
-  end
 
   def patch!(enum, patch_data) when is_list(patch_data) do
     patches = patch_data
@@ -20,8 +17,12 @@ defmodule SmeeOrgs.Patch do
 
   end
 
-  def patch!(enum, location) do
+  def patch!(enum, location) when is_binary(location) do
     patch!(enum, fetch!(location))
+  end
+
+  def patch!(_enum, _data) do
+    raise "Patch can only be either a filename, URL or parsed patch data"
   end
 
   def diff!(org1, org2) do
@@ -66,6 +67,7 @@ defmodule SmeeOrgs.Patch do
     data
     |> validate!()
     |> Enum.map(fn p -> Map.merge(@patch_defaults, p) end)
+    |> Apex.ap()
     |> Enum.sort_by(fn item -> item["priority"] end)
     |> Enum.group_by(fn item -> item["match"] end, fn item -> item end)
     |> Enum.map(

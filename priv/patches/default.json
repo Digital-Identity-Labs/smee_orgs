@@ -40,7 +40,38 @@
       {"path": "/logo_url", "value": "https://upload.wikimedia.org/wikipedia/commons/1/1b/OCLC_logo.svg", "op": "replace"},
       {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/OCLC", "op": "replace"}
     ]
-  }
+  },
+  {
+    "when": "géant",
+    "patch": [
+      {"path": "/country", "value": "NL", "op": "replace"},
+      {"path": "/location", "value": "Amsterdam", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/GÉANT", "op": "replace"},
+      {"path": "/logo_url", "value": "https://upload.wikimedia.org/wikipedia/commons/9/93/Geant_logo_blue.svg", "op": "replace"},
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Géant Association",
+        "it": "Géant Association"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "mimoto",
+    "patch": [
+      {"path": "/location", "value": "Manchester", "op": "replace"},
+      {"path": "/logo_url", "value": "https://mimoto.co.uk/assets/images/mimoto.png", "op": "replace"},
+      {"path": "/type", "value": "company", "op": "replace"}
+    ]
+  },
+  {
+  "when": "carsi",
+  "patch": [
+    {"path": "/country", "value": "CN", "op": "replace"},
+    {"path": "/location", "value": "Beijing", "op": "replace"},
+    {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/CERNET", "op": "replace"},
+    {"path": "/type", "value": "other", "op": "replace"}
+  ]
+}
 ]
 
 

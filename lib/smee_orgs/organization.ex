@@ -4,6 +4,8 @@ defmodule SmeeOrgs.Organization do
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
 
+  @org_types [:education, :healthcare, :company, :archive, :nonprofit, :government, :facility, :other, :unknown]
+
   @derive Jason.Encoder
   defstruct [
     :noid,
@@ -41,7 +43,7 @@ defmodule SmeeOrgs.Organization do
       tags: if(data[:tags], do: data[:tags], else: []),
       ror: data[:ror],
       country: if(data[:country], do: data[:country], else: Utils.domain_to_country(base_domain)),
-      type: if(data[:type], do: data[:type], else: :unknown),
+      type: if(data[:type], do: atomize_type(data[:type]), else: :unknown),
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),
     }
@@ -56,6 +58,26 @@ defmodule SmeeOrgs.Organization do
   def displayname(org, lang \\ "en") do
     Map.get(org, :displaynames, %{})
     |> Utils.select_lang(lang)
+  end
+
+  def url(org, lang \\ "en") do
+    Map.get(org, :urls, %{})
+    |> Utils.select_lang(lang)
+  end
+
+  #########
+
+  defp atomize_type(type) when is_binary(type) do
+    String.to_existing_atom(type)
+    |> atomize_type()
+  end
+
+  defp atomize_type(type) when is_atom(type) and type in @org_types do
+    type
+  end
+
+  defp atomize_type(type) do
+    raise "Organization type '#{type}' is unknown!}"
   end
 
 end

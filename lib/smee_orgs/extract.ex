@@ -20,18 +20,17 @@ defmodule SmeeOrgs.Extract do
     |> List.first()
   end
 
+  def one(entity) do
+    data = XPaths.extract_org(entity.uri, entity.metadata_uri, Entity.xdoc(entity))
+    Organization.new(select_name(data[:names]), select_domain(data[:urls]), data)
+  end
+
   ## Need to implement other data type handlers
   #@spec stream(input :: Entity.t() | Metadata.t() | list() | %Stream{} | function(), options :: keyword()) :: %Stream{} | function()
   def stream(input, options \\ [])
   def stream(stream, options) when is_struct(stream, Stream) or is_function(stream) do
-
     stream
-    |> Stream.map(fn e -> XPaths.extract_org(e.uri, e.metadata_uri, Entity.xdoc(e)) end)
-    |> Stream.map(fn md_org ->
-      Organization.new(select_name(md_org[:names]), select_domain(md_org[:urls]), md_org)
-    end)
-
-
+    |> Stream.map(fn e -> one(e) end)
   end
 
   #    def stream(input, options \\ [])

@@ -10,6 +10,10 @@ defmodule SmeeOrgs do
     Organization.new(name_id, domain, data)
   end
 
+  def extract(entity) do
+    Extract.one(entity)
+  end
+
   def stream(input, opts \\ []) do
     Extract.stream(input, opts)
   end

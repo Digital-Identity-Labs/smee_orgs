@@ -1,129 +1,150 @@
 defmodule SmeeOrgs.NoidOverrides do
 
-  def builtin("online_computer_library_center" <> _) do
+  def builtin(noid) do
+     noid
+     |> prefix()
+     |> String.reverse()
+     |> suffix()
+  end
+  
+  def prefix("online_computer_library_center" <> _) do
     "oclc"
   end
 
-  def builtin("oclc_" <> _) do
+  def prefix("oclc_" <> _) do
     "oclc"
   end
 
-  def builtin("consortium_garr") do
+  def prefix("consortium_garr") do
     "garr"
   end
 
-  def builtin("prod_idp_in_the_cloud_project_garr") do
+  def prefix("prod_idp_in_the_cloud_project_garr") do
     "garr"
   end
 
-  def builtin("geant" <> _) do
+  def prefix("geant" <> _) do
     "geant"
   end
 
-  def builtin("ethiopian_education_and_research_network_" <> _) do
+  def prefix("ethiopian_education_and_research_network_" <> _) do
     "ethiopian_education_and_research_network"
   end
 
-  def builtin("eduroam_" <> _ ) do
+  def prefix("eduroam_" <> _ ) do
     "eduroam"
   end
 
-  def builtin("eduteams_" <> _) do
+  def prefix("eduteams_" <> _) do
     "eduteams"
   end
 
-  def builtin("ebsco_" <> _) do
+  def prefix("ebsco_" <> _) do
     "ebsco"
   end
 
-  def builtin("deic_" <> _) do
+  def prefix("deic_" <> _) do
     "deic"
   end
 
-  def builtin("deicdk") do
+  def prefix("deicdk") do
     "deic"
   end
 
-  def builtin("dar_alhekma_university_2") do
+  def prefix("dar_alhekma_university_2") do
     "dar_alhekma_university"
   end
 
-  def builtin("cstcloud_" <> _) do
+  def prefix("cstcloud_" <> _) do
     "cstcloud"
   end
 
-  def builtin("géant_" <> _) do
+  def prefix("géant_" <> _) do
     "géant"
   end
 
-  def builtin("heanet_" <> _) do
+  def prefix("heanet_" <> _) do
     "heanet"
   end
 
-  def builtin("inflibnet_" <> _) do
+  def prefix("inflibnet_" <> _) do
     "inflibnet"
   end
 
-  def builtin("its_learning_" <> _) do
+  def prefix("its_learning_" <> _) do
     "itslearning"
   end
 
-  def builtin("itslearning_" <> _) do
+  def prefix("itslearning_" <> _) do
     "itslearning"
   end
 
-  def builtin("jisc_" <> _) do
+  def prefix("jisc_" <> _) do
     "jisc"
   end
 
-  def builtin("maeen_" <> _) do
+  def prefix("maeen_" <> _) do
     "maeen"
   end
 
-  def builtin("qualtrics_" <> _) do
+  def prefix("qualtrics_" <> _) do
     "qualtrics"
   end
 
-  def builtin("redclara_" <> _) do
+  def prefix("redclara_" <> _) do
     "redclara"
   end
 
-  def builtin("semantico_" <> _) do
+  def prefix("semantico_" <> _) do
     "semantico"
   end
 
-  def builtin("simplyprint_" <> _) do
+  def prefix("simplyprint_" <> _) do
     "simplyprint"
   end
 
-  def builtin("stiftung_" <> _) do
+  def prefix("stiftung_" <> _) do
     "stiftung"
   end
 
-  def builtin("surfnet") do
+  def prefix("surfnet") do
     "surf"
   end
 
-  def builtin("turnitin_" <> _) do
+  def prefix("turnitin_" <> _) do
     "turnitin"
   end
 
-  def builtin("ubuntunet_alliance_" <> _) do
+  def prefix("ubuntunet_alliance_" <> _) do
     "ubuntunet_alliance"
   end
 
-  def builtin("association_uran") do
+  def prefix("association_uran") do
     "uran"
   end
 
-  def builtin("uran_" <> _) do
+  def prefix("uran_" <> _) do
     "uran"
   end
 
+  def prefix("ss_cyril_and_methodium_university_in_skopje") do
+    "ss_cyril_and_methodius_university_in_skopje"
+  end
 
-
-  def builtin(noid) do
+  def prefix(noid) do
     noid
+  end
+
+  def suffix("ejpoks_ni_ytisrevinu_suidohtem_dna_liryc" <> _) do
+    "ss_cyril_and_methodius_university_in_skopje"
+  end
+
+  def suffix("ejpoks_ni_suidohtem_dna_liryc" <> _) do
+    "ss_cyril_and_methodius_university_in_skopje"
+  end
+
+  def suffix(noid) do
+    String.reverse(noid)
   end
 
 end

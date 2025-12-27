@@ -71,7 +71,37 @@
     {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/CERNET", "op": "replace"},
     {"path": "/type", "value": "other", "op": "replace"}
   ]
-}
+},
+  {
+    "when": "ss_cyril_and_methodius_university_in_skopje",
+    "patch": [
+      {"path": "/country", "value": "CN", "op": "replace"},
+      {"path": "/location", "value": "Skopje", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/Ss._Cyril_and_Methodius_University_of_Skopje", "op": "replace"},
+      {"path": "/type", "value": "education", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Ss. Cyril and Methodius University in Skopje"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Ss. Cyril and Methodius University in Skopje"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://ukim.edu.mk/en/",
+        "mk": "http://www.ukim.edu.mk"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "somali_research_and_education_network",
+    "patch": [
+      {"path": "/country", "value": "SO", "op": "replace"},
+      {"path": "/location", "value": "Mogadishu", "op": "replace"},
+      {"path": "/type", "value": "other", "op": "replace"}
+    ]
+  },
+
+
+
 ]
 
 

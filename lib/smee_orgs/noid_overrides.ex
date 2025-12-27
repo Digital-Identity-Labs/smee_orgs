@@ -131,6 +131,10 @@ defmodule SmeeOrgs.NoidOverrides do
     "ss_cyril_and_methodius_university_in_skopje"
   end
 
+  def prefix("somaliren") do
+    "somali_research_and_education_network"
+  end
+
   def prefix(noid) do
     noid
   end

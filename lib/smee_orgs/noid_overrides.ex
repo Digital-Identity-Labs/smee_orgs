@@ -112,6 +112,16 @@ defmodule SmeeOrgs.NoidOverrides do
     "ubuntunet_alliance"
   end
 
+  def builtin("association_uran") do
+    "uran"
+  end
+
+  def builtin("uran_" <> _) do
+    "uran"
+  end
+
+
+
   def builtin(noid) do
     noid
   end

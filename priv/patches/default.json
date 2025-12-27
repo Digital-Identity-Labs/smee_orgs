@@ -115,6 +115,24 @@
         "en": "https://jisc.ac.uk"
       }, "op": "add"}
     ]
+  },
+  {
+    "when": "digital_identity",
+    "patch": [
+      {"path": "/base_domain", "value": "digitalidentity.ltd.uk", "op": "replace"},
+      {"path": "/location", "value": "Manchester", "op": "replace"},
+      {"path": "/country", "value": "GB", "op": "replace"},
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Digital Identity Ltd"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Digital Identity Ltd"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://digitalidentity.ltd.uk"
+      }, "op": "add"}
+    ]
   }
 ]
 

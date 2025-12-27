@@ -62,6 +62,7 @@ defmodule SmeeOrgs.Organization do
 
   def url(org, lang \\ "en") do
     Map.get(org, :urls, %{})
+    |> Enum.reject(fn {k, v} -> v == "http://unspecified" end)
     |> Utils.select_lang(lang)
   end
 

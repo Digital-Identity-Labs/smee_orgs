@@ -2,9 +2,12 @@ defmodule SmeeOrgs.Process do
 
   alias SmeeOrgs.Utils
   alias SmeeOrgs.ROR
+  alias SmeeOrgs.Tidy
 
   def enhance(enum, opts \\ []) do
-    Enum.map(enum, fn org -> ROR.overlay(org) end)
+    enum
+    |> Enum.map(fn org -> Tidy.all(org) end)
+    #|> Enum.map(fn org -> ROR.overlay(org) end)
   end
 
   def uniq(enum, _opts \\ []) do
@@ -52,24 +55,5 @@ defmodule SmeeOrgs.Process do
       entity_uris: Utils.add_to_unique_list(base.entity_uris, extra.entity_uris)
     }
   end
-
-  """
-        :noid,
-        :base_domain,
-        :names,
-        :displaynames,
-        :urls,
-        :ror,
-        :logo_url,
-        :location,
-        :wikipedia,
-        :country,
-        entity_uris: [],
-        domains: [],
-        tags: [],
-        type: :unknown,
-        registrars: [],
-        federations: []
-  """
 
 end

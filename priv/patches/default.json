@@ -75,7 +75,6 @@
   {
     "when": "ss_cyril_and_methodius_university_in_skopje",
     "patch": [
-      {"path": "/country", "value": "CN", "op": "replace"},
       {"path": "/location", "value": "Skopje", "op": "replace"},
       {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/Ss._Cyril_and_Methodius_University_of_Skopje", "op": "replace"},
       {"path": "/type", "value": "education", "op": "replace"},
@@ -99,9 +98,24 @@
       {"path": "/type", "value": "other", "op": "replace"}
     ]
   },
-
-
-
+  {
+    "when": "jisc",
+    "patch": [
+      {"path": "/base_domain", "value": "jisc.ac.uk", "op": "replace"},
+      {"path": "/location", "value": "Bristol", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/Jisc", "op": "replace"},
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Jisc"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Jisc"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://jisc.ac.uk"
+      }, "op": "add"}
+    ]
+  }
 ]
 
 

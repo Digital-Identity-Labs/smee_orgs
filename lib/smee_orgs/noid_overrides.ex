@@ -23,6 +23,10 @@ defmodule SmeeOrgs.NoidOverrides do
     "garr"
   end
 
+  def prefix("géant" <> _) do
+    "geant"
+  end
+
   def prefix("geant" <> _) do
     "geant"
   end
@@ -138,8 +142,6 @@ defmodule SmeeOrgs.NoidOverrides do
   def prefix("bbc_studios_distribution") do
     "british_broadcasting_corporation"
   end
-
-
 
   def prefix(noid) do
     noid

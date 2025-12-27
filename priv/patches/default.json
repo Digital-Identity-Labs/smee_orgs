@@ -42,8 +42,9 @@
     ]
   },
   {
-    "when": "géant",
+    "when": "geant",
     "patch": [
+      {"path": "/base_domain", "value": "geant.org", "op": "replace"},
       {"path": "/country", "value": "NL", "op": "replace"},
       {"path": "/location", "value": "Amsterdam", "op": "replace"},
       {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/GÉANT", "op": "replace"},
@@ -52,6 +53,13 @@
       {"path": "/displaynames", "value": {
         "en": "Géant Association",
         "it": "Géant Association"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Géant Association",
+        "it": "Géant Association"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://geant.org"
       }, "op": "add"}
     ]
   },

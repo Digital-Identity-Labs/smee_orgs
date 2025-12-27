@@ -135,6 +135,12 @@ defmodule SmeeOrgs.NoidOverrides do
     "somali_research_and_education_network"
   end
 
+  def prefix("bbc_studios_distribution") do
+    "british_broadcasting_corporation"
+  end
+
+
+
   def prefix(noid) do
     noid
   end

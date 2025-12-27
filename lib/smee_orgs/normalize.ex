@@ -20,6 +20,13 @@ defmodule SmeeOrgs.Normalize do
     |> NoidOverrides.builtin()
   end
 
+  def lang_map(map) do
+
+    ## We want to fix nils, and those weird templated values, and force lang case to lower, etc.
+
+    map
+  end
+
   def base_domain(nowt) when nowt in [nil, "", "unspecified"] do
     nil
   end

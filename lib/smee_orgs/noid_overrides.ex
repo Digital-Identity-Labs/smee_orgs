@@ -99,10 +99,6 @@ defmodule SmeeOrgs.NoidOverrides do
     "redclara"
   end
 
-  def prefix("semantico_" <> _) do
-    "semantico"
-  end
-
   def prefix("simplyprint_" <> _) do
     "simplyprint"
   end
@@ -165,6 +161,58 @@ defmodule SmeeOrgs.NoidOverrides do
 
   def prefix("refworks") do
     "clarivate"
+  end
+
+  def prefix("elsevier_" <> _) do
+    "elsevier"
+  end
+
+  def prefix("corehr_" <> _) do
+    "access_group_peoplexd"
+  end
+
+  def prefix("guru_" <> _) do
+    "guru"
+  end
+
+  def prefix("e433") do
+    "qs_unisolution"
+  end
+
+  def prefix("renu") do
+    "research_and_education_network_for_uganda"
+  end
+
+  def prefix("research_and_education_for_uganda_renu") do
+    "research_and_education_network_for_uganda"
+  end
+
+  def prefix("iucaa") do
+    "ligoindia_scientific_collaboration"
+  end
+
+  def prefix("semantico") do
+    "mps"
+  end
+
+  def prefix("semantico_" <> _) do
+    "mps"
+  end
+
+  def prefix("highwire_press_inc") do
+    "mps"
+  end
+
+  def prefix("brillcom") do
+    "brill"
+  end
+
+  def prefix("e190") do
+    "brill"
+  end
+
+  def prefix("walter_de_gruyter_gmbh_&_co_kg") do
+    "brill"
   end
 
   def prefix(noid) do

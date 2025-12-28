@@ -209,8 +209,77 @@
         "en": "https://clarivate.com"
       }, "op": "add"}
     ]
+  },
+  {
+    "when": "elsevier",
+    "patch": [
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/base_domain", "value": "elsevier.com", "op": "replace"},
+      {"path": "/location", "value": "Amsterdam", "op": "replace"},
+      {"path": "/country", "value": "NL", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/elsevier", "op": "replace"},
+      {"path": "/urls", "value": {
+        "en": "https://elsevier.com"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "garr",
+    "patch": [
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/base_domain", "value": "garr.it", "op": "replace"},
+      {"path": "/location", "value": "Rome", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/GARR", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Consortium GARR",
+        "it": "Consortium GARR"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://www.garr.it",
+        "it": "https://www.garr.it"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "mps",
+    "patch": [
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/base_domain", "value": "mpslimited.com", "op": "replace"},
+      {"path": "/location", "value": "Noida", "op": "replace"},
+      {"path": "/country", "value": "IN", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "MPS Ltd"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "MPS Ltd"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://www.mpslimited.com"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "brill",
+    "patch": [
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/base_domain", "value": "brill.com", "op": "replace"},
+      {"path": "/location", "value": "Leiden", "op": "replace"},
+      {"path": "/country", "value": "NL", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "De Gruyter Brill"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "De Gruyter Brill"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://brill.com"
+      }, "op": "add"}
+    ]
   }
+
+
 ]
+
 
 
 

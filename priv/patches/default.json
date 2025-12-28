@@ -141,7 +141,48 @@
         "en": "https://digitalidentity.ltd.uk"
       }, "op": "add"}
     ]
+  },
+  {
+    "when": "apannet",
+    "patch": [
+      {"path": "/location", "value": "Hong Kong", "op": "replace"},
+      {"path": "/country", "value": "HK", "op": "replace"},
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/names", "value": {
+        "en": "Asia Pacific Advanced Network"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "national_institute_for_fusion_science_national_institutes_of_natural_sciences",
+    "patch": [
+      {"path": "/location", "value": "Toki", "op": "replace"},
+      {"path": "/type", "value": "facility", "op": "replace"},
+      {"path": "/names", "value": {
+        "en": "National Institute for Fusion Science, National Institutes of Natural Sciences",
+        "ja": "自然科学研究機構 核融合科学研究所"}, "op": "add"}
+    ]
+  },
+  {
+    "when": "grada_publishing_as",
+    "patch": [
+      {"path": "/location", "value": "Prague", "op": "replace"},
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/country", "value": "CZ", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "cs": "Grada Publishing, a.s.",
+        "en": "Grada Publishing, a.s."
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "canarie",
+    "patch": [
+      {"path": "/type", "value": "other", "op": "replace"}
+    ]
   }
+
+
 ]
 
 

@@ -143,6 +143,10 @@ defmodule SmeeOrgs.NoidOverrides do
     "british_broadcasting_corporation"
   end
 
+  def prefix("canarie_"  <> _) do
+    "canarie"
+  end
+
   def prefix(noid) do
     noid
   end

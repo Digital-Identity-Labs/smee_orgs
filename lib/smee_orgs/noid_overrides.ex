@@ -1,12 +1,12 @@
 defmodule SmeeOrgs.NoidOverrides do
 
   def builtin(noid) do
-     noid
-     |> prefix()
-     |> String.reverse()
-     |> suffix()
+    noid
+    |> prefix()
+    |> String.reverse()
+    |> suffix()
   end
-  
+
   def prefix("online_computer_library_center" <> _) do
     "oclc"
   end
@@ -35,7 +35,7 @@ defmodule SmeeOrgs.NoidOverrides do
     "ethiopian_education_and_research_network"
   end
 
-  def prefix("eduroam_" <> _ ) do
+  def prefix("eduroam_" <> _) do
     "eduroam"
   end
 
@@ -143,8 +143,28 @@ defmodule SmeeOrgs.NoidOverrides do
     "british_broadcasting_corporation"
   end
 
-  def prefix("canarie_"  <> _) do
+  def prefix("canarie_" <> _) do
     "canarie"
+  end
+
+  def prefix("cesnet" <> _) do
+    "cesnet"
+  end
+
+  def prefix("proquest") do
+    "clarivate"
+  end
+
+  def prefix("ebooks_corporation") do
+    "clarivate"
+  end
+
+  def prefix("ex_libris_" <> _) do
+    "clarivate"
+  end
+
+  def prefix("refworks") do
+    "clarivate"
   end
 
   def prefix(noid) do

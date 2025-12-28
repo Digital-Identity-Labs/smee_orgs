@@ -178,11 +178,39 @@
   {
     "when": "canarie",
     "patch": [
-      {"path": "/type", "value": "other", "op": "replace"}
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/location", "value": "Ottawa", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/CANARIE", "op": "replace"}
+    ]
+  },
+  {
+    "when": "cesnet",
+    "patch": [
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/location", "value": "Prague", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/CESNET", "op": "replace"}
+    ]
+  },
+  {
+    "when": "clarivate",
+    "patch": [
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/base_domain", "value": "clarivate.com", "op": "replace"},
+      {"path": "/location", "value": "Jersey", "op": "replace"},
+      {"path": "/country", "value": "JE", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/Clarivate", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Clarivate PLC"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Clarivate PLC"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://clarivate.com"
+      }, "op": "add"}
     ]
   }
-
-
 ]
+
 
 

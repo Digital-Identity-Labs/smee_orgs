@@ -67,7 +67,6 @@ defmodule SmeeOrgs.Patch do
     data
     |> validate!()
     |> Enum.map(fn p -> Map.merge(@patch_defaults, p) end)
-    |> Apex.ap()
     |> Enum.sort_by(fn item -> item["priority"] end)
     |> Enum.group_by(fn item -> item["match"] end, fn item -> item end)
     |> Enum.map(

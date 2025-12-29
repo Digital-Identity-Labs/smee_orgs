@@ -297,6 +297,34 @@
         "it": "Istituto Nazionale di Fisica Nucleare"
       }, "op": "add"}
     ]
+  },
+  {
+    "when": "kif",
+    "patch": [
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/location", "value": "Bishkek", "op": "replace"},
+      {"path": "/country", "value": "KG", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "KRENA Identity Federation",
+        "ky": "KIF"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "KRENA Identity Federation",
+        "ky": "KIF"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "ipil",
+    "patch": [
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/location", "value": "Luxembourg", "op": "replace"},
+      {"path": "/country", "value": "LU", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Institut de la Propriété Intellectuelle Luxembourg",
+        "fr": "Institut de la Propriété Intellectuelle Luxembourg"
+      }, "op": "add"}
+    ]
   }
 
 

@@ -7,13 +7,12 @@ defmodule SmeeOrgs.Process do
   def enhance(enum, opts \\ []) do
     enum
     |> Enum.map(fn org -> Tidy.all(org) end)
-    #|> Enum.map(fn org -> ROR.overlay(org) end)
+    |> Enum.map(fn org -> ROR.overlay(org) end)
   end
 
   def uniq(enum, _opts \\ []) do
     enum
     |> Enum.uniq_by(fn org -> org.noid end)
-    #  |> Enum.map(fn org -> %{org | tags: Utils.add_to_unique_list(org.tags, [:uniq])} end)
   end
 
   def merge(enum, opts \\ [action: :merge]) do

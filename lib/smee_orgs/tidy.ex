@@ -6,13 +6,14 @@ defmodule SmeeOrgs.Tidy do
 
   @dfn "https://www.aai.dfn.de"
   @service_hints ["Moodle", "SP ", "VLE ", "IdP", "Test ", " test ", "Service Provider ", "SSO "]
-  @censor ["Moodle", "VLE"]
+  @censor ["Moodle", "VLE", "MOOC Edvance provided by ", " - MOODLE LMS for MOOCs"]
 
   def all(org) do
     org
     |> dfn_code_names()
     |> swap_bad_names()
     |> edit_bad_names()
+    |> not_provided_by()
     |> assume_type()
   end
 
@@ -144,6 +145,17 @@ defmodule SmeeOrgs.Tidy do
       new_names = Map.get(org, :displaynames, %{})
       |> Enum.map(fn {k, v} -> {k, String.replace(v, @censor, "") |> String.trim()} end)
       |> Map.new()
+      %{org | displaynames: new_names}
+    else
+      org
+    end
+  end
+
+  def not_provided_by(%{displaynames: %{"en" => name}} = org) do
+    if String.contains?(name, "provided by") do
+      new_names = Map.get(org, :displaynames, %{})
+                  |> Enum.map(fn {k, v} -> {k, Regex.replace(~r/(\A.*provided by)(.*)\Z/, v, "\\2") |> String.trim()} end)
+                  |> Map.new()
       %{org | displaynames: new_names}
     else
       org

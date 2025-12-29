@@ -127,6 +127,18 @@ defmodule SmeeOrgs.NoidOverrides do
     "uran"
   end
 
+  def prefix("filesender_service") do
+    "uran"
+  end
+
+  def prefix("elearning_platform") do
+    "ipil"
+  end
+
+  def prefix("greek_university_network") do
+    "greek_universities_network"
+  end
+
   def prefix("ss_cyril_and_methodium_university_in_skopje") do
     "ss_cyril_and_methodius_university_in_skopje"
   end
@@ -229,6 +241,14 @@ defmodule SmeeOrgs.NoidOverrides do
 
   def prefix("national_institute_for_nuclear_physics_infn") do
     "italian_national_institute_for_nuclear_physics"
+  end
+
+  def prefix("e540") do
+    "evasys"
+  end
+
+  def prefix("kif_filesender") do
+    "kif"
   end
 
   def prefix(noid) do

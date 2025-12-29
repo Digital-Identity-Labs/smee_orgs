@@ -34,7 +34,7 @@ defmodule SmeeOrgs.ROR do
       ror: ror.id,
       base_domain: base_domain,
       domains: Utils.add_to_unique_list(org.domains, ror.domains),
-      displaynames: Utils.merge_lang_maps(org.displaynames, names(ror)),
+      displaynames: Utils.merge_lang_maps(org.displaynames, Normalize.lang_map(names(ror))),
       country: country(ror),
       location: location(ror),
       wikipedia: wikipedia(ror),

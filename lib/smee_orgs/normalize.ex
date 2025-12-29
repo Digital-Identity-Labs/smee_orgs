@@ -21,10 +21,29 @@ defmodule SmeeOrgs.Normalize do
   end
 
   def lang_map(map) do
-
-    ## We want to fix nils, and those weird templated values, and force lang case to lower, etc.
-
     map
+    |> Enum.map(fn {k, v} -> {lang_key(k), lang_value(v)} end)
+    |> Map.new()
+  end
+
+  def lang_key(nowt) when nowt == "" or is_nil(nowt) do
+    "en"
+  end
+
+  def lang_key(key) when is_atom(key) do
+    to_string(key)
+    |> lang_key()
+  end
+
+  def lang_key(key) do
+    key
+    |> String.split("-")
+    |> List.first()
+    |> String.downcase()
+  end
+
+  def lang_value(value) do
+    String.trim(value)
   end
 
   def base_domain(nowt) when nowt in [nil, "", "unspecified"] do

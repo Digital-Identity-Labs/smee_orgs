@@ -31,16 +31,20 @@ defmodule SmeeOrgs.NoidOverrides do
     "geant"
   end
 
+  def prefix("eduteams_" <> _) do
+    "geant"
+  end
+
+  def prefix("eduteams") do
+    "geant"
+  end
+
   def prefix("ethiopian_education_and_research_network_" <> _) do
     "ethiopian_education_and_research_network"
   end
 
   def prefix("eduroam_" <> _) do
     "eduroam"
-  end
-
-  def prefix("eduteams_" <> _) do
-    "eduteams"
   end
 
   def prefix("ebsco_" <> _) do
@@ -61,10 +65,6 @@ defmodule SmeeOrgs.NoidOverrides do
 
   def prefix("cstcloud_" <> _) do
     "cstcloud"
-  end
-
-  def prefix("géant_" <> _) do
-    "géant"
   end
 
   def prefix("heanet_" <> _) do
@@ -213,6 +213,22 @@ defmodule SmeeOrgs.NoidOverrides do
 
   def prefix("walter_de_gruyter_gmbh_&_co_kg") do
     "brill"
+  end
+
+  def prefix("sop_hilmbauer_&_mauberger_gmbh_&_co_kg") do
+    "sop_hilmbauer_&_mauberger"
+  end
+
+  def prefix("e370") do
+    "sop_hilmbauer_&_mauberger"
+  end
+
+  def prefix("national_institute_for_nuclear_physics") do
+    "italian_national_institute_for_nuclear_physics"
+  end
+
+  def prefix("national_institute_for_nuclear_physics_infn") do
+    "italian_national_institute_for_nuclear_physics"
   end
 
   def prefix(noid) do

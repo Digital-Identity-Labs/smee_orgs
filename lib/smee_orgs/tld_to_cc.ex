@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.TldToCc do
 
+  @moduledoc false
+
   @tld_to_cc %{
     "edu" => "US",
     "gov" => "US",

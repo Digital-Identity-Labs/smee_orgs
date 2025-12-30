@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Utils do
 
+  @moduledoc false
+
   alias SmeeOrgs.TldToCc
 
   def select_lang(map, lang \\ "en") do

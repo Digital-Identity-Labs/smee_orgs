@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Patch do
 
+  @moduledoc false
+
   @patch_defaults %{
     "match" => "noid",
     "priority" => 100

@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Logo do
 
+  @moduledoc false
+
   require Logger
 
   alias SmeeOrgs.Normalize

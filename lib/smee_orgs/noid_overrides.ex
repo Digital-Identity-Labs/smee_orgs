@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.NoidOverrides do
 
+  @moduledoc false
+
   def builtin(noid) do
     noid
     |> prefix()

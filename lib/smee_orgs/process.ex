@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Process do
 
+  @moduledoc false
+
   alias SmeeOrgs.Utils
   alias SmeeOrgs.ROR
   alias SmeeOrgs.Tidy

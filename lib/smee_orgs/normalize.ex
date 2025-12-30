@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Normalize do
 
+  @moduledoc false
+
   alias SmeeOrgs.NoidOverrides
 
   @punctuation [",", ".", "-", "'", "(", ")", "]", "[", ":", "+", "/", "\\", "’"]

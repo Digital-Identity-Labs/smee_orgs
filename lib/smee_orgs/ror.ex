@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.ROR do
 
+  @moduledoc false
+
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Utils

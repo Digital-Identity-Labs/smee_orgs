@@ -43,7 +43,7 @@ defmodule SmeeOrgs.Organization do
       tags: if(data[:tags], do: data[:tags], else: []),
       ror: data[:ror],
       country: if(data[:country], do: data[:country], else: Utils.domain_to_country(base_domain)),
-      type: if(data[:type], do: atomize_type(data[:type]), else: :unknown),
+      type: if(data[:type], do: Utils.atomize_type(data[:type]), else: :unknown),
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),
     }
@@ -67,20 +67,34 @@ defmodule SmeeOrgs.Organization do
     |> Utils.select_lang(lang)
   end
 
+  def aggregated_text(org) do
+    [[org.noid], [org.base_domain], [org.country], org.entity_uris, org.domains, Map.values(org.names), Map.values(org.displaynames), Map.values(org.urls), [org.location]]
+    |> List.flatten()
+    |> Enum.uniq()
+    |> Enum.join(" ")
+  end
+
+  def langs(org) do
+    [Map.keys(org.names), Map.keys(org.displaynames), Map.keys(org.urls)]
+    |> List.flatten()
+    |> Enum.uniq()
+  end
+
+  def tags(org) do
+    (org.tags || [])
+    |> Enum.map(&to_string/1)
+  end
+
+  def domains(org) do
+    (org.domains || []) ++ [org.base_domain]
+    |> Enum.uniq()
+  end
+
+  def types() do
+    @org_types
+  end
+
   #########
-
-  defp atomize_type(type) when is_binary(type) do
-    String.to_existing_atom(type)
-    |> atomize_type()
-  end
-
-  defp atomize_type(type) when is_atom(type) and type in @org_types do
-    type
-  end
-
-  defp atomize_type(type) do
-    raise "Organization type '#{type}' is unknown!}"
-  end
 
 end
 

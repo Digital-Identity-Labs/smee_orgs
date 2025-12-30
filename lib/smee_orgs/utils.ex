@@ -1,5 +1,7 @@
 defmodule SmeeOrgs.Utils do
 
+  @org_types [:education, :healthcare, :company, :archive, :nonprofit, :government, :facility, :other, :unknown]
+
   alias SmeeOrgs.TldToCc
 
   def select_lang(map, lang \\ "en") do
@@ -67,5 +69,20 @@ defmodule SmeeOrgs.Utils do
   def domain_to_country(domain) do
     TldToCc.domain_to_country(domain)
   end
+
+
+  def atomize_type(type) when is_binary(type) do
+    String.to_existing_atom(type)
+    |> atomize_type()
+  end
+
+  def atomize_type(type) when is_atom(type) and type in @org_types do
+    type
+  end
+
+  def atomize_type(type) do
+    raise "Organization type '#{type}' is unknown!}"
+  end
+
 
 end

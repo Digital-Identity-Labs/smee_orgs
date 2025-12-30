@@ -45,11 +45,12 @@ defmodule SmeeOrgs.MixProject do
     [
       # {:smee, ">0.4.0"},
       {:smee, ">= 0.5.1"},
-      {:ror, "~> 0.1.0"},
+      {:ror, "~> 0.1"},
       {:sweet_xml, "~> 0.7"},
       {:jason, "~> 1.4"},
       {:domainatrex, "~> 3.0"},
       {:jsonpatch, "~> 2.3"},
+      {:find_site_icon, "~> 0.5"},
 
       {:apex, "~> 1.2", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},

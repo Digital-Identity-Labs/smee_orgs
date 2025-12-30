@@ -3,6 +3,7 @@ defmodule SmeeOrgs.Process do
   alias SmeeOrgs.Utils
   alias SmeeOrgs.ROR
   alias SmeeOrgs.Tidy
+  alias SmeeOrgs.Logo
 
   def enhance(enum, opts \\ []) do
     enum
@@ -30,6 +31,11 @@ defmodule SmeeOrgs.Process do
 
   def dump(enum, filename, _opts \\ []) when is_list(enum) do
     File.write(filename, Jason.encode!(enum))
+  end
+
+  def add_logos(enum, opts \\ [force: true]) do
+    enum
+    |> Enum.map(fn org -> Logo.add_site_logo_url(org, opts) end)
   end
 
   #################

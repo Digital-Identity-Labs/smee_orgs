@@ -49,6 +49,11 @@ defmodule SmeeOrgs do
   end
 
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
+  def add_logos(enum, opts \\ [force: false]) do
+    Process.add_logos(enum, opts)
+  end
+
+  ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
   def patch!(enum) do
     Patch.patch!(enum, Patch.default_patch_location())
   end

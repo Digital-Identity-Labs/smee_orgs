@@ -104,22 +104,3 @@ defmodule SmeeOrgs.ROR do
   end
 
 end
-
-"""
-    :noid,
-    :base_domain,
-    :faux,
-    :names,
-    :displaynames,
-    :urls,
-    :ror,
-    :logo_url,
-    :location,
-    :wikipedia,
-    :country,
-    domains: [],
-    tags: [],
-    types: [],
-    registrars: [],
-    federations: []
-"""

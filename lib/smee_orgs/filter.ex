@@ -6,33 +6,33 @@ defmodule SmeeOrgs.Filter do
 
   def noid(enum, noids, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> (Enum.member?(List.wrap(noids), o.noid)) == bool end)
+    |> Enum.filter(fn o -> (Enum.member?(List.wrap(noids), o.noid)) == bool end)
   end
 
   def type(enum, type, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> (Normalize.type(type) == o.type) == bool end)
+    |> Enum.filter(fn o -> (Normalize.type(type) == o.type) == bool end)
   end
 
   def country(enum, country, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> (String.upcase("#{country}") == o.country) == bool end)
+    |> Enum.filter(fn o -> (String.upcase("#{country}") == o.country) == bool end)
   end
 
   def domain(enum, domain, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> Enum.member?(Organization.domains(o), domain) == bool end)
+    |> Enum.filter(fn o -> Enum.member?(Organization.domains(o), domain) == bool end)
   end
 
   @spec lang(enum :: Enumerable.t(), lang :: binary(), bool :: boolean()) :: Enumerable.t()
   def lang(enum, lang, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> String.downcase("#{lang}") in Organization.langs(o) == bool end)
+    |> Enum.filter(fn o -> String.downcase("#{lang}") in Organization.langs(o) == bool end)
   end
 
   def contains(enum, text, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> (String.contains?(Organization.aggregated_text(o), text)) == bool end)
+    |> Enum.filter(fn o -> (String.contains?(Organization.aggregated_text(o), text)) == bool end)
   end
 
   @doc """
@@ -51,7 +51,7 @@ defmodule SmeeOrgs.Filter do
 
   def tag(enum, tag, bool) do
     enum
-    |> Stream.filter(fn l -> (tag in Organization.tags(l)) == bool end)
+    |> Enum.filter(fn l -> (tag in Organization.tags(l)) == bool end)
   end
 
   #######################################################

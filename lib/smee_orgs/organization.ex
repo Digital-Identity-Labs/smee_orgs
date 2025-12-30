@@ -4,8 +4,6 @@ defmodule SmeeOrgs.Organization do
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
 
-  @org_types [:education, :healthcare, :company, :archive, :nonprofit, :government, :facility, :other, :unknown]
-
   @derive Jason.Encoder
   defstruct [
     :noid,
@@ -43,7 +41,7 @@ defmodule SmeeOrgs.Organization do
       tags: if(data[:tags], do: data[:tags], else: []),
       ror: data[:ror],
       country: if(data[:country], do: data[:country], else: Utils.domain_to_country(base_domain)),
-      type: if(data[:type], do: Utils.atomize_type(data[:type]), else: :unknown),
+      type: if(data[:type], do: Normalize.type(data[:type]), else: :unknown),
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),
     }

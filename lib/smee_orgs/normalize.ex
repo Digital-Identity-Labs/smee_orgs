@@ -5,6 +5,7 @@ defmodule SmeeOrgs.Normalize do
   @punctuation [",", ".", "-", "'", "(", ")", "]", "[", ":", "+", "/", "\\", "’"]
   @company_name_prefixes ~r/\Athe /
   @company_name_suffixes ~r/\s(inc|ltd|llc|inc|oy|corp|plc|limited|co|sro|ale|sa|ag|bv|nv|ltee|bv|gmbh|sia|pte|pty|as|co ltd|identity_provider|idp|shibboleth|limited, the|the|.com|.net|.org)\Z/
+  @org_types [:education, :healthcare, :company, :archive, :nonprofit, :government, :facility, :other, :unknown]
 
 
   def noid(name) do
@@ -62,6 +63,19 @@ defmodule SmeeOrgs.Normalize do
         IO.warn "Invalid domain for organization: #{domain}!"
         nil
     end
+  end
+
+  def type(type) when is_binary(type) do
+    String.to_existing_atom(type)
+    |> type()
+  end
+
+  def type(type) when is_atom(type) and type in @org_types do
+    type
+  end
+
+  def type(type) do
+    raise "Organization type '#{type}' is unknown!}"
   end
 
   ############

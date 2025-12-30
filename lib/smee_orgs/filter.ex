@@ -1,5 +1,6 @@
 defmodule SmeeOrgs.Filter do
 
+  alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
   alias SmeeOrgs.Organization
 
@@ -10,7 +11,7 @@ defmodule SmeeOrgs.Filter do
 
   def type(enum, type, bool \\ true) do
     enum
-    |> Stream.filter(fn o -> (Utils.atomize_type(type) == o.type) == bool end)
+    |> Stream.filter(fn o -> (Normalize.type(type) == o.type) == bool end)
   end
 
   def country(enum, country, bool \\ true) do

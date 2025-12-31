@@ -253,6 +253,66 @@ defmodule SmeeOrgs.NoidOverrides do
     "kif"
   end
 
+  def prefix("e692") do
+    "e780"
+  end
+
+  def prefix("garnetedugh") do
+    "ghanaian_academic_and_research_network"
+  end
+
+  def prefix("national_infrastructures_for_research_and_technology_grnet") do
+    "greek_research_and_technology_network_grnet"
+  end
+
+  def prefix("harvard_"  <> _) do
+    "harvard"
+  end
+
+  def prefix("president_and_fellows_of_harvard_college") do
+    "harvard"
+  end
+
+  def prefix("kenya_education_network_" <> _) do
+    "kenya_education_network"
+  end
+
+  def prefix("ma_healthcare") do
+    "ma_group"
+  end
+
+  def prefix("ma_education") do
+    "ma_group"
+  end
+
+  def prefix("loschmidt_laboratories") do
+    "masaryk_university"
+  end
+
+  def prefix("ics_muni") do
+    "masaryk_university"
+  end
+
+  def prefix("partner_sps") do
+    "niif_institute_national_information_infrastructure_development"
+  end
+
+  def prefix("polimi") do
+    "politecnico_di_milano"
+  end
+
+  def prefix("wolters_kluwer_united_states") do
+    "wolters_kluwer_nv"
+  end
+
+  def prefix("kluwer_law_international") do
+    "wolters_kluwer_nv"
+  end
+
+  def prefix("ovid_technologies") do
+    "wolters_kluwer_nv"
+  end
+
   def prefix(noid) do
     noid
   end

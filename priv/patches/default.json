@@ -325,11 +325,58 @@
         "fr": "Institut de la Propriété Intellectuelle Luxembourg"
       }, "op": "add"}
     ]
+  },
+  {
+    "when": "eurecapro_european_university",
+    "patch": [
+      {"path": "/type", "value": "education", "op": "replace"},
+      {"path": "/location", "value": null, "op": "replace"},
+      {"path": "/base_domain", "value": "eurecapro.eu", "op": "replace"},
+      {"path": "/country", "value": "EU", "op": "replace"}
+    ]
+  },
+  {
+    "when": "eulist_european_university",
+    "patch": [
+      {"path": "/type", "value": "education", "op": "replace"},
+      {"path": "/location", "value": null, "op": "replace"},
+      {"path": "/base_domain", "value": "eulist.university", "op": "replace"},
+      {"path": "/country", "value": "EU", "op": "replace"}
+    ]
+  },
+  {
+    "when": "harvard",
+    "patch": [
+      {"path": "/type", "value": "education", "op": "replace"},
+      {"path": "/location", "value": "Cambridge", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Harvard University"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "ma_group",
+    "patch": [
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/location", "value": "London", "op": "replace"},
+      {"path": "/country", "value": "GB", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Mark Allen Group"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "wolters_kluwer_nv",
+    "patch": [
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/location", "value": "Alphen aan den Rijn", "op": "replace"},
+      {"path": "/country", "value": "NL", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/Wolters_Kluwer", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Wolters Kluwer",
+        "nl": "Wolters Kluwer"
+      }, "op": "add"}
+    ]
   }
-
-
 ]
-
-
-
 

@@ -137,6 +137,10 @@ defmodule SmeeOrgs.Tidy do
     end
   end
 
+  def swap_bad_names(org) do
+    org
+  end
+
   def edit_bad_names(%{displaynames: %{"en" => name}} = org) do
     if String.contains?(name, @service_hints) do
 
@@ -149,6 +153,10 @@ defmodule SmeeOrgs.Tidy do
     end
   end
 
+  def edit_bad_names(org) do
+    org
+  end
+
   def not_provided_by(%{displaynames: %{"en" => name}} = org) do
     if String.contains?(name, "provided by") do
       new_names = Map.get(org, :displaynames, %{})
@@ -158,6 +166,10 @@ defmodule SmeeOrgs.Tidy do
     else
       org
     end
+  end
+
+  def not_provided_by(org) do
+    org
   end
 
 end

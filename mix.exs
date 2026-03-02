@@ -43,12 +43,11 @@ defmodule SmeeOrgs.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:smee, ">0.4.0"},
-      {:smee, ">= 0.5.1"},
-      {:ror, "~> 0.1"},
+      {:smee, ">= 0.6.0"},
+      {:ror, ">= 0.1.0"},
       {:sweet_xml, "~> 0.7"},
       {:jason, "~> 1.4"},
-      {:domainatrex, "~> 3.0"},
+      {:domainatrex, "~> 3.2"},
       {:jsonpatch, "~> 2.3"},
       {:find_site_icon, "~> 0.5"},
 
@@ -56,11 +55,12 @@ defmodule SmeeOrgs.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.14 and >= 0.14.4", only: [:dev, :test]},
       {:benchee, "~> 1.3", only: [:dev, :test]},
-      {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.40.0"}, ## FIX THIS
       {:earmark, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
       {:doctor, "~> 0.21", only: :dev, runtime: false},
       {:ex_json_schema, "~> 0.10.2", only: :test, runtime: false},
+      {:json_comparator, "~> 1.0", only: :test, runtime: false}
     ]
   end
 

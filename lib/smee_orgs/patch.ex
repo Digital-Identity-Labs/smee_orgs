@@ -10,13 +10,25 @@ defmodule SmeeOrgs.Patch do
   alias SmeeOrgs.Client
 
 
+#  def patch!(enum, one, two) do
+#
+#  end
+
+  def patch!(enum, :default) do
+    Patch.patch!(enum, Patch.default_patch_location())
+  end
+
   def patch!(enum, patch_data) when is_list(patch_data) do
     patches = patch_data
               |> prepare_patches()
 
+    patch!(enum, patches)
+
+  end
+
+  def patch!(enum, patches) when is_map(patches) do
     enum
     |> Enum.map(fn org -> apply_patches(org, patches) end)
-
   end
 
   def patch!(enum, location) when is_binary(location) do
@@ -53,19 +65,7 @@ defmodule SmeeOrgs.Patch do
     Path.join(Application.app_dir(:smee_orgs, "priv"), "patches/default.json")
   end
 
-  ###################################
-
-  defp apply_patches(org, patches) do
-
-    matching_patches = Map.get(patches, "noid", %{})
-                       |> Map.get(org.noid, [])
-                       |> Enum.map(fn patch -> patch["patch"] end)
-
-    Enum.reduce(matching_patches, org, fn patch, acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end)
-
-  end
-
-  defp prepare_patches(data) do
+  def prepare_patches(data) do
     data
     |> validate!()
     |> Enum.map(fn p -> Map.merge(@patch_defaults, p) end)
@@ -76,6 +76,18 @@ defmodule SmeeOrgs.Patch do
        )
     |> List.flatten() # SMELL
     |> Map.new()
+  end
+
+  ###################################
+
+  defp apply_patches(org, patches) do
+
+    matching_patches = Map.get(patches, "noid", %{})
+                       |> Map.get(org.noid, [])
+                       |> Enum.map(fn patch -> patch["patch"] end)
+
+    Enum.reduce(matching_patches, org, fn patch, acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end)
+
   end
 
 end

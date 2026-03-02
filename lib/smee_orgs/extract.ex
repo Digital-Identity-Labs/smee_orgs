@@ -54,7 +54,6 @@ defmodule SmeeOrgs.Extract do
   #    def stream(%Entity{} = entity, options) do
   #      Entity.xdoc(entity)
   #      |> XPaths.extract_org()
-  #      |> Apex.ap()
   #      |> Map.get(:logos)
   #      |> Stream.concat([])
   #      |> Stream.map(

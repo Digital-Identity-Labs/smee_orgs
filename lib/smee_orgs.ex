@@ -60,7 +60,7 @@ defmodule SmeeOrgs do
 
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
   def patch!(enum, source, opts \\ []) do
-    Patch.patch!(enum, source, opts)
+    Patch.patch!(enum, source)
   end
 
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here

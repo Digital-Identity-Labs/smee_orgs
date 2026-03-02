@@ -45,7 +45,7 @@ defmodule SmeeOrgs.Utils do
     possible
   end
 
-  def set_if_empty(current, possible) do
+  def set_if_empty(current, _possible) do
     current
   end
 

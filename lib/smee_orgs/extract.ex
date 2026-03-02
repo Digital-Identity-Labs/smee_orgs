@@ -2,9 +2,7 @@ defmodule SmeeOrgs.Extract do
 
   @moduledoc false
 
-  alias __MODULE__
   alias Smee.Entity
-  alias Smee.Metadata
   alias SmeeOrgs.XPaths
   alias SmeeOrgs.Utils
   alias SmeeOrgs.Organization
@@ -16,7 +14,7 @@ defmodule SmeeOrgs.Extract do
 
   def select_domain(domains) do
     domains
-    |> Enum.map(fn {lang, v} -> v end)
+    |> Enum.map(fn {_lang, v} -> v end)
     |> List.first()
   end
 
@@ -28,7 +26,7 @@ defmodule SmeeOrgs.Extract do
   ## Need to implement other data type handlers
   #@spec stream(input :: Entity.t() | Metadata.t() | list() | %Stream{} | function(), options :: keyword()) :: %Stream{} | function()
   def stream(input, options \\ [])
-  def stream(stream, options) when is_struct(stream, Stream) or is_function(stream) do
+  def stream(stream, _options) when is_struct(stream, Stream) or is_function(stream) do
     stream
     |> Stream.map(fn e -> one(e) end)
   end

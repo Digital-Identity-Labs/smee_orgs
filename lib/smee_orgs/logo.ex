@@ -4,12 +4,10 @@ defmodule SmeeOrgs.Logo do
 
   require Logger
 
-  alias SmeeOrgs.Normalize
-  alias SmeeOrgs.Organization
   alias SmeeOrgs.Utils
 
   def add_site_logo_url(org, opts) do
-    url = case FindSiteIcon.find_icon("https://#{org.base_domain}") do
+    case FindSiteIcon.find_icon("https://#{org.base_domain}") do
       {:ok, url} -> Logger.debug("Found icon for #{org.noid} at #{url}")
                     if opts[:force] do
                       %{org | logo_url: url}

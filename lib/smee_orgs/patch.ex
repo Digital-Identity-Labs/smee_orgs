@@ -7,6 +7,7 @@ defmodule SmeeOrgs.Patch do
     "priority" => 100
   }
 
+  alias __MODULE__
   alias SmeeOrgs.Client
 
 
@@ -53,7 +54,7 @@ defmodule SmeeOrgs.Patch do
     |> Jason.decode!()
   end
 
-  def valid?(data) do
+  def valid?(_) do
     true
   end
 
@@ -86,7 +87,7 @@ defmodule SmeeOrgs.Patch do
                        |> Map.get(org.noid, [])
                        |> Enum.map(fn patch -> patch["patch"] end)
 
-    Enum.reduce(matching_patches, org, fn patch, acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end)
+    Enum.reduce(matching_patches, org, fn patch, _acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end) # ?? Problem?
 
   end
 

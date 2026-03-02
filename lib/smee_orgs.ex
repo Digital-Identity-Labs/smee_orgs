@@ -3,7 +3,6 @@ defmodule SmeeOrgs do
   alias SmeeOrgs.Patch
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Extract
-  alias SmeeOrgs.ROR
   alias SmeeOrgs.Process
 
   def new(name_id, domain, data) do
@@ -59,7 +58,7 @@ defmodule SmeeOrgs do
   end
 
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
-  def patch!(enum, source, opts \\ []) do
+  def patch!(enum, source, _opts \\ []) do
     Patch.patch!(enum, source)
   end
 

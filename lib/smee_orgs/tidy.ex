@@ -2,10 +2,6 @@ defmodule SmeeOrgs.Tidy do
 
   @moduledoc false
 
-  alias SmeeOrgs.Normalize
-  alias SmeeOrgs.Organization
-  alias SmeeOrgs.Utils
-
   @dfn "https://www.aai.dfn.de"
   @service_hints ["Moodle", "SP ", "VLE ", "IdP", "Test ", " test ", "Service Provider ", "SSO "]
   @censor ["Moodle", "VLE", "MOOC Edvance provided by ", " - MOODLE LMS for MOOCs"]

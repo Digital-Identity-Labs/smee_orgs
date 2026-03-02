@@ -1,7 +1,6 @@
 defmodule SmeeOrgs.Filter do
 
   alias SmeeOrgs.Normalize
-  alias SmeeOrgs.Utils
   alias SmeeOrgs.Organization
 
   def noid(enum, noids, bool \\ true) do

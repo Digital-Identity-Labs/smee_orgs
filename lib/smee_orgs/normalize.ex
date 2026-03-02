@@ -62,7 +62,7 @@ defmodule SmeeOrgs.Normalize do
     case Domainatrex.parse(domain) do
       {:ok, bits} -> Enum.join([bits[:domain], bits[:tld]], ".")
       {:error, msg} ->
-        IO.warn "Invalid domain for organization: #{domain}!"
+        IO.warn "Invalid domain for organization: #{domain}: #{msg}!"
         nil
     end
   end
@@ -78,6 +78,10 @@ defmodule SmeeOrgs.Normalize do
 
   def type(type) do
     raise "Organization type '#{type}' is unknown!}"
+  end
+
+  def types do
+    @org_types
   end
 
   ############

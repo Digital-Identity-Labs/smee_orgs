@@ -60,7 +60,7 @@ defmodule SmeeOrgs.Organization do
 
   def url(org, lang \\ "en") do
     Map.get(org, :urls, %{})
-    |> Enum.reject(fn {k, v} -> v == "http://unspecified" end)
+    |> Enum.reject(fn {_k, v} -> v == "http://unspecified" end)
     |> Map.new()
     |> Utils.select_lang(lang)
   end
@@ -89,44 +89,9 @@ defmodule SmeeOrgs.Organization do
   end
 
   def types() do
-    @org_types
+    Normalize.types()
   end
 
   #########
 
 end
-
-## Attributes:
-## - Names
-## - DisplayNames
-## - URLs
-## - ROR
-## - Other IDs
-## - instanceID
-## - Logo
-## - Tags
-## - primary_type
-## - has_sps
-## - has_idps
-## - registrars
-## - federations
-
-##     field :name, :string
-#    field :description, :string
-#    field :url, :string
-#    field :reg_auth, :string
-#    field :displayname, :string
-#    field :thumb_hash, :string, default: "PwgCBQAnL4SHh4hXiH2XVwAAAAAA"
-#
-#    has_many :origins, Spine.Metadata.Origin
-#    has_many :destinations, Spine.Metadata.Destination
-#    has_one :logo, Spine.Metadata.Logo,
-#            on_replace: :delete
-#
-#    timestamps(type: :utc_datetime)
-
-##      <Organization>
-# 140   │         <OrganizationName xml:lang="en">Ian A. Young</OrganizationName>
-# 141   │         <OrganizationDisplayName xml:lang="en">Ian A. Young</OrganizationDisplayName>
-# 142   │         <OrganizationURL xml:lang="en">http://iay.org.uk/</OrganizationURL>
-# 143   │     </Organization>

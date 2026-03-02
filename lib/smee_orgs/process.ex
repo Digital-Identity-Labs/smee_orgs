@@ -7,7 +7,7 @@ defmodule SmeeOrgs.Process do
   alias SmeeOrgs.Tidy
   alias SmeeOrgs.Logo
 
-  def enhance(enum, opts \\ []) do
+  def enhance(enum, _opts \\ []) do
     enum
     |> Enum.map(fn org -> Tidy.all(org) end)
     |> Enum.map(fn org -> ROR.overlay(org) end)
@@ -28,7 +28,7 @@ defmodule SmeeOrgs.Process do
   def aggregate(enum, _opts \\ []) do
     enum
     |> Enum.group_by(fn org -> org.noid end)
-    |> Enum.map(fn {noid, orgs} -> merge(orgs, action: :aggregate) end)
+    |> Enum.map(fn {_noid, orgs} -> merge(orgs, action: :aggregate) end)
   end
 
   def dump(enum, filename, _opts \\ []) when is_list(enum) do
@@ -57,7 +57,6 @@ defmodule SmeeOrgs.Process do
       type: Utils.set_if_empty(base.type, extra.type),
       registrars: Utils.add_to_unique_list(base.registrars, extra.registrars),
       federations: Utils.add_to_unique_list(base.federations, extra.federations),
-      location: Utils.set_if_empty(base.location, extra.location),
       wikipedia: Utils.set_if_empty(base.wikipedia, extra.wikipedia),
       entity_uris: Utils.add_to_unique_list(base.entity_uris, extra.entity_uris)
     }

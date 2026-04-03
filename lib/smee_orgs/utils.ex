@@ -4,43 +4,52 @@ defmodule SmeeOrgs.Utils do
 
   alias SmeeOrgs.TldToCc
 
+  @spec select_lang(map :: map(), lang :: binary()) :: binary()
   def select_lang(map, lang \\ "en") do
     select_lang_pref(map, lang) || select_lang_default(map) || select_lang_fallback(map)
   end
 
+  @spec select_lang_pref(map :: map(), lang :: binary()) :: binary() | nil
   def select_lang_pref(map, lang \\ "en") do
     Map.get(map, to_string(lang), nil)
   end
 
+  @spec select_lang_default(map :: map()) :: binary() | nil
   def select_lang_default(map) do
     Map.get(map, "en", nil)
   end
 
+  @spec select_lang_fallback(map :: map()) :: binary() | nil
   def select_lang_fallback(map) do
     Map.values(map)
     |> List.first()
   end
 
-  def extract_domains(nowt) when nowt in [nil, "", "unspecified"] do
-    []
+  @spec extract_domain(url :: binary()) :: binary() | nil
+  def extract_domain(nowt) when nowt in [nil, "", "unspecified"] do
+    nil
   end
 
-  def extract_domains("http" <> _ = url) do
+  def extract_domain("http" <> _ = url) do
     bits = URI.new!(url)
-    bits.host || []
+    bits.host || nil
   end
 
+  @spec extract_domains(urls :: list(binary())) :: list()
   def extract_domains(urls) when is_list(urls) do
-    Enum.map(urls, fn url -> extract_domains(url) end)
+    Enum.map(urls, fn url -> extract_domain(url) end)
     |> Enum.uniq()
+    |> Enum.reject(&is_nil/1)
   end
 
   def extract_domains(urls) when is_map(urls) do
     Map.values(urls)
-    |> Enum.map(fn url -> extract_domains(url) end)
+    |> Enum.flmap(fn url -> extract_domain(url) end)
     |> Enum.uniq()
+    |> Enum.reject(&is_nil/1)
   end
 
+  @spec set_if_empty(current :: nil | binary() | :unknown, possible :: nil | binary() | :unknown) :: binary()
   def set_if_empty(current, possible) when is_nil(current) or current == "" or current == :unknown do
     possible
   end
@@ -49,13 +58,16 @@ defmodule SmeeOrgs.Utils do
     current
   end
 
+  @spec add_to_unique_list(list :: list(), item :: binary() | nil | atom() | list()) :: list()
   def add_to_unique_list(list, item) do
     [item | list]
     |> List.flatten()
     |> Enum.sort()
+    |> Enum.reject(&is_nil/1)
     |> Enum.uniq()
   end
 
+  @spec merge_lang_maps(original :: map(), new :: map()) :: map()
   def merge_lang_maps(original, new) do
     Map.merge(
       original,
@@ -66,6 +78,7 @@ defmodule SmeeOrgs.Utils do
     )
   end
 
+  @spec domain_to_country(domain :: binary()) :: binary()
   def domain_to_country(domain) do
     TldToCc.domain_to_country(domain)
   end

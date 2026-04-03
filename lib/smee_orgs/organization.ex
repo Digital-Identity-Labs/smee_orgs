@@ -4,6 +4,25 @@ defmodule SmeeOrgs.Organization do
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
 
+  @type t :: %__MODULE__{
+               noid: binary(),
+               base_domain: nil | binary(),
+               names: map(),
+               displaynames: map(),
+               urls: map(),
+               ror: nil | binary(),
+               logo_url: nil | binary(),
+               location: nil | binary(),
+               wikipedia: nil | binary(),
+               country: nil | binary(),
+               entity_uris: list(binary()),
+               domains: list(binary()),
+               tags: list(binary()),
+               type: atom(),
+               registrars: list(binary()),
+               federations: list(binary())
+             }
+             
   @derive Jason.Encoder
   defstruct [
     :noid,
@@ -24,6 +43,7 @@ defmodule SmeeOrgs.Organization do
     federations: []
   ]
 
+  @spec new(name_id :: binary(), domain :: binary(), data :: map() | keyword()) :: Organization.t()
   def new(name_id, domain, data) do
 
     base_domain = SmeeOrgs.Normalize.base_domain(domain)
@@ -48,16 +68,19 @@ defmodule SmeeOrgs.Organization do
 
   end
 
+  @spec name(org :: Organization.t(), lang :: binary()) :: binary()
   def name(org, lang \\ "en") do
     Map.get(org, :names, %{})
     |> Utils.select_lang(lang)
   end
 
+  @spec displayname(org :: Organization.t()) :: binary()
   def displayname(org, lang \\ "en") do
     Map.get(org, :displaynames, %{})
     |> Utils.select_lang(lang)
   end
 
+  @spec url(org :: Organization.t()) :: binary()
   def url(org, lang \\ "en") do
     Map.get(org, :urls, %{})
     |> Enum.reject(fn {_k, v} -> v == "http://unspecified" end)
@@ -65,29 +88,44 @@ defmodule SmeeOrgs.Organization do
     |> Utils.select_lang(lang)
   end
 
+  @spec aggregated_text(org :: Organization.t()) :: binary()
   def aggregated_text(org) do
-    [[org.noid], [org.base_domain], [org.country], org.entity_uris, org.domains, Map.values(org.names), Map.values(org.displaynames), Map.values(org.urls), [org.location]]
+    [
+      [org.noid],
+      [org.base_domain],
+      [org.country],
+      org.entity_uris,
+      org.domains,
+      Map.values(org.names),
+      Map.values(org.displaynames),
+      Map.values(org.urls),
+      [org.location]
+    ]
     |> List.flatten()
     |> Enum.uniq()
     |> Enum.join(" ")
   end
 
+  @spec langs(org :: Organization.t()) :: list(binary())
   def langs(org) do
     [Map.keys(org.names), Map.keys(org.displaynames), Map.keys(org.urls)]
     |> List.flatten()
     |> Enum.uniq()
   end
 
+  @spec tags(org :: Organization.t()) :: list(binary())
   def tags(org) do
     (org.tags || [])
     |> Enum.map(&to_string/1)
   end
 
+  @spec domains(org :: Organization.t()) :: list(binary())
   def domains(org) do
     (org.domains || []) ++ [org.base_domain]
     |> Enum.uniq()
   end
 
+  @spec types() :: list(atom())
   def types() do
     Normalize.types()
   end

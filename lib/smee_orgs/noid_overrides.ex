@@ -2,6 +2,7 @@ defmodule SmeeOrgs.NoidOverrides do
 
   @moduledoc false
 
+  @spec builtin(noid :: binary()) :: binary()
   def builtin(noid) do
     noid
     |> prefix()
@@ -9,6 +10,7 @@ defmodule SmeeOrgs.NoidOverrides do
     |> suffix()
   end
 
+  @spec prefix(noid :: binary()) :: binary()
   def prefix("online_computer_library_center" <> _) do
     "oclc"
   end
@@ -317,6 +319,7 @@ defmodule SmeeOrgs.NoidOverrides do
     noid
   end
 
+  @spec suffix(noid :: binary()) :: binary()
   def suffix("ejpoks_ni_ytisrevinu_suidohtem_dna_liryc" <> _) do
     "ss_cyril_and_methodius_university_in_skopje"
   end

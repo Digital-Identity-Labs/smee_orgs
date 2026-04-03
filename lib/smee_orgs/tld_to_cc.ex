@@ -253,6 +253,7 @@ defmodule SmeeOrgs.TldToCc do
     "" => "ZZ"
   }
 
+  @spec domain_to_country(domain :: binary()) :: binary()
   def domain_to_country(nowt) when is_nil(nowt) or nowt == "" or nowt == "unknown" do
     nil
   end

@@ -9,7 +9,7 @@ defmodule SmeeOrgs.Client do
     headers: %{
       "accept" => "application/json",
       "accept-charset" => "utf-8"
-    },
+    }
   ]
 
   @spec get!(url :: binary(), opts :: keyword()) :: map()
@@ -32,7 +32,7 @@ defmodule SmeeOrgs.Client do
   def http_agent_name do
     "SmeeOrgs #{Application.spec(:smee_orgs, :vsn)}"
   end
-
+  
   ######################################################################################
 
   @spec retry_jitter(n :: integer()) :: integer()

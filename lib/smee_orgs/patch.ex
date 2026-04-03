@@ -8,13 +8,10 @@ defmodule SmeeOrgs.Patch do
   }
 
   alias __MODULE__
+  alias SmeeOrgs.Organization
   alias SmeeOrgs.Client
 
-
-#  def patch!(enum, one, two) do
-#
-#  end
-
+  @spec patch!(enum :: Enumerable.t(), data :: :default | list() | map() | binary()) :: Enumerable.t()
   def patch!(enum, :default) do
     Patch.patch!(enum, Patch.default_patch_location())
   end
@@ -40,11 +37,13 @@ defmodule SmeeOrgs.Patch do
     raise "Patch can only be either a filename, URL or parsed patch data"
   end
 
+  @spec diff!(org1 :: Jsonpatch.Types.json_container(), org2 :: Jsonpatch.Types.json_container()) :: map()
   def diff!(org1, org2) do
     patches = Jsonpatch.diff(org1, org2, keys: :atoms)
     %{@patch_defaults | patch: patches}
   end
 
+  @spec fetch!(enum :: Enumerable.t()) :: Enumerable.t()
   def fetch!("http" <> _ = location) do
     Client.get!(location)
   end
@@ -54,18 +53,28 @@ defmodule SmeeOrgs.Patch do
     |> Jason.decode!()
   end
 
-  def valid?(_) do
-    true
+  @spec valid?(data :: Enumerable.t()) :: boolean()
+  def valid?(patch_data) do
+    ## TODO: We could probably do with using a JSON schema here 
+    cond do
+      !is_list(patch_data) -> false
+      !Enum.all?(patch_data, fn x -> is_map(x) end) -> false
+      true -> true
+    end
   end
 
+  @spec validate!(data :: Enumerable.t()) :: Enumerable.t()
   def validate!(data) do
-    if valid?(data), do: data, else: raise("Invalid patch data!")
+    if !valid?(data), do: raise("Invalid patch data!")
+    data
   end
 
+  @spec default_patch_location() :: binary()
   def default_patch_location() do
     Path.join(Application.app_dir(:smee_orgs, "priv"), "patches/default.json")
   end
 
+  @spec prepare_patches(data :: Enumerable.t()) :: map()
   def prepare_patches(data) do
     data
     |> validate!()
@@ -81,13 +90,18 @@ defmodule SmeeOrgs.Patch do
 
   ###################################
 
+  @spec apply_patches(org :: SmeeOrgs.Organization.t(), patches :: Enumerable.t()) :: Enumerable.t()
   defp apply_patches(org, patches) do
 
     matching_patches = Map.get(patches, "noid", %{})
                        |> Map.get(org.noid, [])
                        |> Enum.map(fn patch -> patch["patch"] end)
 
-    Enum.reduce(matching_patches, org, fn patch, _acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end) # ?? Problem?
+    Enum.reduce(
+      matching_patches,
+      org,
+      fn patch, _acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end
+    ) # ?? Problem?
 
   end
 

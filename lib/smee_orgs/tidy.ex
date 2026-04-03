@@ -5,7 +5,8 @@ defmodule SmeeOrgs.Tidy do
   @dfn "https://www.aai.dfn.de"
   @service_hints ["Moodle", "SP ", "VLE ", "IdP", "Test ", " test ", "Service Provider ", "SSO "]
   @censor ["Moodle", "VLE", "MOOC Edvance provided by ", " - MOODLE LMS for MOOCs"]
-
+  
+  @spec all(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def all(org) do
     org
     |> dfn_code_names()
@@ -15,6 +16,7 @@ defmodule SmeeOrgs.Tidy do
     |> assume_type()
   end
 
+  @spec dfn_code_names(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def dfn_code_names(org) do
     if Enum.member?(org.registrars, @dfn) do
       Map.put(org, :names, Map.get(org, :displaynames))
@@ -24,6 +26,7 @@ defmodule SmeeOrgs.Tidy do
 
   end
 
+  @spec assume_type(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def assume_type(
         %{
           type: :unknown,
@@ -41,6 +44,7 @@ defmodule SmeeOrgs.Tidy do
     org
   end
 
+  @spec assume_type_prefix(org :: SmeeOrgs.Organization.t(), prefix :: binary()) :: SmeeOrgs.Organization.t()
   def assume_type_prefix(org, "University of " <> _) do
     %{org | type: :education}
   end
@@ -93,6 +97,7 @@ defmodule SmeeOrgs.Tidy do
     org
   end
 
+  @spec assume_type_rsuffix(org :: SmeeOrgs.Organization.t(), rsuffix :: binary()) :: SmeeOrgs.Organization.t()
   def assume_type_rsuffix(org, "dtL" <> _)   do
     %{org | type: :company}
   end
@@ -129,6 +134,7 @@ defmodule SmeeOrgs.Tidy do
     org
   end
 
+  @spec swap_bad_names(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def swap_bad_names(%{displaynames: %{"en" => name1}, names: %{"en" => name2}} = org) do
     if String.contains?(name1, @service_hints) and !String.contains?(name2, @service_hints) do
       %{org | displaynames: org.names}
@@ -141,6 +147,7 @@ defmodule SmeeOrgs.Tidy do
     org
   end
 
+  @spec edit_bad_names(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def edit_bad_names(%{displaynames: %{"en" => name}} = org) do
     if String.contains?(name, @service_hints) do
 
@@ -157,6 +164,7 @@ defmodule SmeeOrgs.Tidy do
     org
   end
 
+  @spec not_provided_by(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def not_provided_by(%{displaynames: %{"en" => name}} = org) do
     if String.contains?(name, "provided by") do
       new_names = Map.get(org, :displaynames, %{})

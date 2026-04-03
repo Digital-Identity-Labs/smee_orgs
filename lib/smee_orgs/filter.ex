@@ -3,21 +3,25 @@ defmodule SmeeOrgs.Filter do
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Organization
 
+  @spec noid(enum :: Enumerable.t(), noids :: binary() | list(binary()), bool :: boolean()) :: Enumerable.t()
   def noid(enum, noids, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (Enum.member?(List.wrap(noids), o.noid)) == bool end)
   end
 
+  @spec type(enum :: Enumerable.t(), type :: binary() | atom(), bool :: boolean()) :: Enumerable.t()
   def type(enum, type, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (Normalize.type(type) == o.type) == bool end)
   end
 
+  @spec country(enum :: Enumerable.t(), country :: binary() | atom(), bool :: boolean()) :: Enumerable.t()
   def country(enum, country, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (String.upcase("#{country}") == o.country) == bool end)
   end
 
+  @spec domain(enum :: Enumerable.t(), domain :: binary(), bool :: boolean()) :: Enumerable.t()
   def domain(enum, domain, bool \\ true) do
     enum
     |> Enum.filter(fn o -> Enum.member?(Organization.domains(o), domain) == bool end)
@@ -29,6 +33,7 @@ defmodule SmeeOrgs.Filter do
     |> Enum.filter(fn o -> String.downcase("#{lang}") in Organization.langs(o) == bool end)
   end
 
+  @spec contains(enum :: Enumerable.t(), text :: binary(), bool :: boolean()) :: Enumerable.t()
   def contains(enum, text, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (String.contains?(Organization.aggregated_text(o), text)) == bool end)

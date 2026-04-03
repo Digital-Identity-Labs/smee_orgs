@@ -32,6 +32,7 @@ defmodule SmeeOrgs.XPaths do
     |> Map.new()
   end
 
+  @spec org_xmap() :: list()
   defp org_xmap do
     [
       organization_names: [
@@ -56,6 +57,7 @@ defmodule SmeeOrgs.XPaths do
     ]
   end
 
+  @spec extract_ra(map: map()) :: binary()
   def extract_ra(%{authority: auth}) do
     auth
   end

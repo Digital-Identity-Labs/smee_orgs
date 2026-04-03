@@ -7,17 +7,20 @@ defmodule SmeeOrgs.Process do
   alias SmeeOrgs.Tidy
   alias SmeeOrgs.Logo
 
+  @spec enhance(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
   def enhance(enum, _opts \\ []) do
     enum
     |> Enum.map(fn org -> Tidy.all(org) end)
     |> Enum.map(fn org -> ROR.overlay(org) end)
   end
 
+  @spec uniq(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
   def uniq(enum, _opts \\ []) do
     enum
     |> Enum.uniq_by(fn org -> org.noid end)
   end
 
+  @spec merge(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
   def merge(enum, opts \\ [action: :merge]) do
     base_org = Enum.at(enum, 0)
     actions = [opts[:action]]
@@ -25,16 +28,19 @@ defmodule SmeeOrgs.Process do
     %{merged | tags: Utils.add_to_unique_list(merged.tags, actions)}
   end
 
+  @spec aggregate(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
   def aggregate(enum, _opts \\ []) do
     enum
     |> Enum.group_by(fn org -> org.noid end)
     |> Enum.map(fn {_noid, orgs} -> merge(orgs, action: :aggregate) end)
   end
 
+  @spec dump(enum :: Enumerable.t(), filename :: binary(), opts :: keyword()) :: :ok
   def dump(enum, filename, _opts \\ []) when is_list(enum) do
     File.write(filename, Jason.encode!(enum))
   end
 
+  @spec add_logos(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
   def add_logos(enum, opts \\ [force: true]) do
     enum
     |> Enum.map(fn org -> Logo.add_site_logo_url(org, opts) end)
@@ -42,6 +48,7 @@ defmodule SmeeOrgs.Process do
 
   #################
 
+  @spec merge_organizations(base :: SmeeOrgs.Organization.t(), extra :: SmeeOrgs.Organization.t(), opts :: keyword()) :: SmeeOrgs.Organization.t()
   defp merge_organizations(base, extra, _opts) do
     %{
       base |

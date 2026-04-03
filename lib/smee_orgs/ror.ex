@@ -6,6 +6,7 @@ defmodule SmeeOrgs.ROR do
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Utils
 
+  @spec get(org :: Organization.t()) :: ROR.Organization.t() | nil
   def get(org) do
     try do
       Organization.name(org)
@@ -16,6 +17,7 @@ defmodule SmeeOrgs.ROR do
     end
   end
 
+  @spec overlay(org :: Organization.t()) :: Organization.t()
   def overlay(org) do
     org
     |> get()
@@ -24,6 +26,7 @@ defmodule SmeeOrgs.ROR do
 
   #####################
 
+  @spec apply_ror_overlay(ror :: ROR.Organization.t() | nil, org :: Organization.t()) :: Organization.t()
   defp apply_ror_overlay(nil, org) do
     org
   end
@@ -49,6 +52,7 @@ defmodule SmeeOrgs.ROR do
 
   end
 
+  @spec location(ror :: ROR.Organization.t()) :: binary()
   defp location(%{locations: [%{name: name}]}) do
     name
   end
@@ -57,6 +61,7 @@ defmodule SmeeOrgs.ROR do
     nil
   end
 
+  @spec country(ror :: ROR.Organization.t()) :: binary()
   defp country(%{locations: [%{country_code: country}]}) do
     country
   end
@@ -65,6 +70,7 @@ defmodule SmeeOrgs.ROR do
     nil
   end
 
+  @spec type(ror :: ROR.Organization.t()) :: atom()
   defp type(%{types: types}) do
 
     types = List.delete(types, "funder")
@@ -83,10 +89,7 @@ defmodule SmeeOrgs.ROR do
 
   end
 
-  defp type(_) do
-    :other
-  end
-
+  @spec names(ror :: ROR.Organization.t()) :: map()
   defp names(ror) do
     Map.get(ror, :names, [])
     |> Enum.filter(fn name -> :label in name.types end)
@@ -94,12 +97,14 @@ defmodule SmeeOrgs.ROR do
     |> Map.new()
   end
 
+  @spec wikipedia(ror :: ROR.Organization.t()) :: binary() | nil
   defp wikipedia(ror) do
     Map.get(ror, :links, [])
     |> Enum.find(%{value: nil}, fn link -> link.type == :wikipedia end)
     |> Map.get(:value)
   end
 
+  @spec website(ror :: ROR.Organization.t()) :: binary() | nil
   defp website(ror) do
     Map.get(ror, :links, [])
     |> Enum.find(%{value: nil}, fn link -> link.type == :website end)

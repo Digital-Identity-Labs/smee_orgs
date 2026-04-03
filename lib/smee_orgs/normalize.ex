@@ -9,7 +9,7 @@ defmodule SmeeOrgs.Normalize do
   @company_name_suffixes ~r/\s(inc|ltd|llc|inc|oy|corp|plc|limited|co|sro|ale|sa|ag|bv|nv|ltee|bv|gmbh|sia|pte|pty|as|co ltd|identity_provider|idp|shibboleth|limited, the|the|.com|.net|.org)\Z/
   @org_types [:education, :healthcare, :company, :archive, :nonprofit, :government, :facility, :other, :unknown]
 
-
+  @spec noid(name :: binary()) :: binary()
   def noid(name) do
     "#{name}"
     |> String.downcase()
@@ -23,16 +23,18 @@ defmodule SmeeOrgs.Normalize do
     |> NoidOverrides.builtin()
   end
 
+  @spec lang_map(map :: map()) :: map()
   def lang_map(map) do
     map
     |> Enum.map(fn {k, v} -> {lang_key(k), lang_value(v)} end)
     |> Map.new()
   end
-
+  
+  @spec lang_key(nowt :: nil | binary() | atom()) :: binary()
   def lang_key(nowt) when nowt == "" or is_nil(nowt) do
     "en"
   end
-
+  
   def lang_key(key) when is_atom(key) do
     to_string(key)
     |> lang_key()
@@ -44,20 +46,22 @@ defmodule SmeeOrgs.Normalize do
     |> List.first()
     |> String.downcase()
   end
-
+  
+  @spec lang_value(value :: binary()) :: binary()
   def lang_value(value) do
     String.trim(value)
   end
 
+  @spec base_domain(url ::  nil | binary()) :: binary()
   def base_domain(nowt) when nowt in [nil, "", "unspecified"] do
     nil
   end
-
+  
   def base_domain("http" <> _ = url) do
     bits = URI.new!(url)
     base_domain(bits.host)
   end
-
+  
   def base_domain(domain) do
     case Domainatrex.parse(domain) do
       {:ok, bits} -> Enum.join([bits[:domain], bits[:tld]], ".")
@@ -67,6 +71,7 @@ defmodule SmeeOrgs.Normalize do
     end
   end
 
+  @spec type(type :: atom() | binary()) :: atom()
   def type(type) when is_binary(type) do
     String.to_existing_atom(type)
     |> type()
@@ -75,16 +80,16 @@ defmodule SmeeOrgs.Normalize do
   def type(type) when is_atom(type) and type in @org_types do
     type
   end
-
+  
   def type(type) do
     raise "Organization type '#{type}' is unknown!}"
   end
 
+  @spec types() :: list(atom())
   def types do
     @org_types
   end
 
   ############
-
-
+  
 end

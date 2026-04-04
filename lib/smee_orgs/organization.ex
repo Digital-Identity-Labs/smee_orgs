@@ -22,7 +22,7 @@ defmodule SmeeOrgs.Organization do
                registrars: list(binary()),
                federations: list(binary())
              }
-             
+
   @derive Jason.Encoder
   defstruct [
     :noid,
@@ -46,7 +46,8 @@ defmodule SmeeOrgs.Organization do
   @spec new(name_id :: binary(), domain :: binary(), data :: map() | keyword()) :: Organization.t()
   def new(name_id, domain, data) do
 
-    base_domain = SmeeOrgs.Normalize.base_domain(domain)
+    base_domain = Normalize.url(domain)
+                  |> Normalize.base_domain()
 
     %Organization{
       noid: Normalize.noid(name_id),

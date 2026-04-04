@@ -3,6 +3,7 @@ defmodule SmeeOrgs.Utils do
   @moduledoc false
 
   alias SmeeOrgs.TldToCc
+  alias SmeeOrgs.Normalize
 
   @spec select_lang(map :: map(), lang :: binary()) :: binary()
   def select_lang(map, lang \\ "en") do
@@ -26,25 +27,40 @@ defmodule SmeeOrgs.Utils do
   end
 
   @spec extract_domain(url :: binary()) :: binary() | nil
-  def extract_domain(nowt) when nowt in [nil, "", "unspecified"] do
+  def extract_domain(nowt) when nowt in [nil, "", "unspecified", ":"] do
     nil
   end
 
   def extract_domain("http" <> _ = url) do
-    bits = URI.new!(url)
-    bits.host || nil
+    try do
+      bits = URI.new!(url)
+      bits.host || nil
+    rescue
+      oops -> IO.warn("Cannot parse url #{url}, returning nil")
+              nil
+    end
   end
 
   @spec extract_domains(urls :: list(binary())) :: list()
   def extract_domains(urls) when is_list(urls) do
-    Enum.map(urls, fn url -> extract_domain(url) end)
+    Enum.map(
+      urls,
+      fn url ->
+        Normalize.url(url)
+        |> extract_domain()
+      end
+    )
     |> Enum.uniq()
     |> Enum.reject(&is_nil/1)
   end
 
   def extract_domains(urls) when is_map(urls) do
     Map.values(urls)
-    |> Enum.flmap(fn url -> extract_domain(url) end)
+    |> Enum.map(
+         fn url -> Normalize.url(url)
+                   |> extract_domain()
+         end
+       )
     |> Enum.uniq()
     |> Enum.reject(&is_nil/1)
   end

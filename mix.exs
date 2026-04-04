@@ -16,12 +16,7 @@ defmodule SmeeOrgs.MixProject do
       test_coverage: [
         tool: ExCoveralls
       ],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test
-      ],
+      cli: cli(),
       docs: [
         main: "readme",
         # logo: "path/to/logo.png",
@@ -51,16 +46,18 @@ defmodule SmeeOrgs.MixProject do
       {:jsonpatch, "~> 2.3"},
       {:find_site_icon, "~> 0.5"},
 
+      {:smee_feds, "~> 0.4.0", only: [:dev, :test], runtime: false},
       {:apex, "~> 1.2", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.14 and >= 0.14.4", only: [:dev, :test]},
       {:benchee, "~> 1.3", only: [:dev, :test]},
-      {:ex_doc, "~> 0.40.0"}, ## FIX THIS
+      {:ex_doc, "~> 0.40.0"},
+      ## FIX THIS
       {:earmark, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
       {:doctor, "~> 0.21", only: :dev, runtime: false},
-      {:ex_json_schema, "~> 0.10.2", only: :test, runtime: false},
-      {:json_comparator, "~> 1.0", only: :test, runtime: false}
+      {:json_comparator, "~> 1.0", only: :test, runtime: false},
+      {:table_rex, "~> 4.1"}
     ]
   end
 
@@ -70,6 +67,17 @@ defmodule SmeeOrgs.MixProject do
       links: %{
         "GitHub" => "https://github.com/Digital-Identity-Labs/smee_orgs"
       }
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 

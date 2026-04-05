@@ -85,7 +85,30 @@ defmodule TidyTest do
         "Ecole ",
         "Université ",
         "Univerza ",
-        "Place University"
+        "Place University",
+        "Place College",
+        "Place School",
+        "Something SS",
+        "Something College of FE",
+        "Politecnico of Bari",
+        "Politehnica University Timisoara",
+        "Politeknik Bagan Datuk ",
+        "Polytechnic Institute of Beja",
+        "Pontificia Universidad Católica del Ecuador Quito",
+        "Univerza v Ljubljani Medicinska fakulteta",
+        "Academy of Something",
+        "Centro Something",
+        "China University Something",
+        "American University Something",
+        "Coleg Gwent",
+        "College of Something",
+        "The College of Something Else",
+        "Escola Superior Agrária de Viseu",
+        "Institut Agro Dijon",
+        "Institute for Something",
+        "Institute of Something",
+        "Korea Institute of Something",
+        "Academy of Something"
       ]
       |> Enum.each(
            fn name ->
@@ -113,13 +136,21 @@ defmodule TidyTest do
         "Business PLC",
         "Business Limited",
         "Business Inc",
-        "Business GmbH"
+        "Business GmbH",
+        "ProQuest LLC",
+        "Something Incorporated",
+        "Something Company",
+        "Something Plc",
+        "Something Plc",
+        "Something Corporation"
       ]
       |> Enum.each(
            fn name ->
-
              assert %Organization{
-                      type: :company
+                      type: :company,
+                      displaynames: %{
+                        "en" => name
+                      }
                     } = Tidy.assume_type(
                       %Organization{
                         noid: "placeholder",
@@ -138,25 +169,36 @@ defmodule TidyTest do
 
       %{
         "National Org" => :facility,
-        "Something Laboratory"  => :facility,
-        "eduID.ZZ" => :other
+        "Something Laboratory" => :facility,
+        "eduID.ZZ" => :other,
+        "Australian Federation" => :other,
+        "Alan Turing Institute" => :facility,
+        "American Chemical Society" => :nonprofit,
+        "The Something Institution" => :nonprofit,
+        "Foundation for International Education" => :nonprofit,
+        "Development Agency" => :government,
+        "Municipal Library Somewhere" => :library,
+        "National Library of Spain" => :library,
+        "Korea Institute of " => :education,
+        "Centre for Agricultural Research" => :facility
+
       }
       |> Enum.each(
            fn {name, type} ->
 
              %Organization{
-                      type: rtype
-                    } = Tidy.assume_type(
-                      %Organization{
-                        noid: "placeholder",
-                        type: :unknown,
-                        displaynames: %{
-                          "en" => name
-                        }
-                      }
-                    )
-                    
-                    assert type == rtype
+               type: rtype
+             } = Tidy.assume_type(
+               %Organization{
+                 noid: "placeholder",
+                 type: :unknown,
+                 displaynames: %{
+                   "en" => name
+                 }
+               }
+             )
+
+             assert type == rtype
 
            end
          )

@@ -26,3 +26,4 @@ smee_orgs-*.tar
 /tmp/
 /dump.json
 *.json
+/t.txt

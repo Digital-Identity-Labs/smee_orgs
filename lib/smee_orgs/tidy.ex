@@ -138,6 +138,14 @@ defmodule SmeeOrgs.Tidy do
     %{org | type: :education}
   end
 
+  defp assume_type_prefix(org, "National Institute " <> _) do
+    %{org | type: :facility}
+  end
+
+  defp assume_type_prefix(org, "National Library " <> _) do
+    %{org | type: :library}
+  end
+
   defp assume_type_prefix(org, "National " <> _) do
     %{org | type: :facility}
   end
@@ -145,7 +153,91 @@ defmodule SmeeOrgs.Tidy do
   defp assume_type_prefix(org, "eduID." <> _) do
     %{org | type: :other}
   end
+  
+  defp assume_type_prefix(org, "Academy of " <> _) do
+    %{org | type: :education}
+  end
 
+  defp assume_type_prefix(org, "Centre for " <> _) do
+    %{org | type: :facility}
+  end
+
+  defp assume_type_prefix(org, "Centro " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "China University " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "American University " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Coleg " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "College of " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "The College of " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Escola " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Foundation " <> _) do
+    %{org | type: :nonprofit}
+  end
+
+  defp assume_type_prefix(org, "Korea Institute of " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Academy of" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Academy of" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Municipal Library " <> _) do
+    %{org | type: :library}
+  end
+
+  defp assume_type_prefix(org, "Library of" <> _) do
+    %{org | type: :library}
+  end
+  
+  defp assume_type_prefix(org, "Politecnico " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Politehnica " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Politeknik " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Polytechnic " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Pontificia Universidad " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Univerza " <> _) do
+    %{org | type: :education}
+  end
+  
   defp assume_type_prefix(org, _) do
     org
   end
@@ -183,6 +275,72 @@ defmodule SmeeOrgs.Tidy do
     %{org | type: :facility}
   end
 
+  defp assume_type_rsuffix(org, "noitaredeF" <> _) do
+    %{org | type: :other}
+  end
+
+  defp assume_type_rsuffix(org, "CLL" <> _) do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "etutitsnI" <> _) do
+    %{org | type: :facility}
+  end
+
+  defp assume_type_rsuffix(org, "egelloC" <> _) do
+    %{org | type: :education}
+  end
+
+
+  defp assume_type_rsuffix(org, "yteicoS" <> _) do
+    %{org | type: :nonprofit}
+  end
+  
+  defp assume_type_rsuffix(org, "noitaicossA" <> _) do
+    %{org | type: :nonprofit}
+  end
+
+
+  defp assume_type_rsuffix(org, "loohcS" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_rsuffix(org, "detaroprocnI" <> _) do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "ynapmoC" <> _) do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "clP" <> _) do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "noitutitsnI" <> _) do
+    %{org | type: :nonprofit}
+  end
+
+  defp assume_type_rsuffix(org, "SS" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_rsuffix(org, "ycnegA" <> _) do
+    %{org | type: :government}
+  end
+
+  defp assume_type_rsuffix(org, "EF fo egelloC" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_rsuffix(org, "noitaroproC" <> _) do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "noitacudE rehtruF fo egelloC" <> _) do
+    %{org | type: :company}
+  end
+  
   defp assume_type_rsuffix(org, _) do
     org
   end

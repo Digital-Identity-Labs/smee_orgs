@@ -255,14 +255,14 @@ defmodule SmeeOrgs.TldToCc do
 
   @spec domain_to_country(domain :: binary()) :: binary()
   def domain_to_country(nowt) when is_nil(nowt) or nowt == "" or nowt == "unknown" do
-    nil
+    "ZZ"
   end
 
   def domain_to_country(domain) do
     tld = String.split(domain, ".")
           |> List.last()
           |> String.downcase()
-    Map.get(@tld_to_cc, tld, nil)
+    Map.get(@tld_to_cc, tld, "ZZ")
   end
 
 end

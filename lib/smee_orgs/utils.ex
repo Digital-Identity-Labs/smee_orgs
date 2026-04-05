@@ -20,9 +20,11 @@ defmodule SmeeOrgs.Utils do
     Map.get(map, "en", nil)
   end
 
+  ## Maps lack ordering, so we can't simply take the first one as the default... Should we change to use lists?
   @spec select_lang_fallback(map :: map()) :: binary() | nil
   def select_lang_fallback(map) do
     Map.values(map)
+    |> Enum.sort()
     |> List.first()
   end
 
@@ -40,8 +42,16 @@ defmodule SmeeOrgs.Utils do
               nil
     end
   end
-
-  @spec extract_domains(urls :: list(binary())) :: list()
+  
+  def extract_domain(_) do
+    nil
+  end
+  
+  @spec extract_domains(urls :: list(binary()) | nil) :: list()
+  def extract_domains(nil) do
+    []
+  end
+  
   def extract_domains(urls) when is_list(urls) do
     Enum.map(
       urls,
@@ -56,17 +66,11 @@ defmodule SmeeOrgs.Utils do
 
   def extract_domains(urls) when is_map(urls) do
     Map.values(urls)
-    |> Enum.map(
-         fn url -> Normalize.url(url)
-                   |> extract_domain()
-         end
-       )
-    |> Enum.uniq()
-    |> Enum.reject(&is_nil/1)
+    |> extract_domains()
   end
 
   @spec set_if_empty(current :: nil | binary() | :unknown, possible :: nil | binary() | :unknown) :: binary()
-  def set_if_empty(current, possible) when is_nil(current) or current == "" or current == :unknown do
+  def set_if_empty(current, possible) when is_nil(current) or current == "" or current == :unknown or current == "ZZ" do
     possible
   end
 

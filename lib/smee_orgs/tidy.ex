@@ -59,7 +59,7 @@ defmodule SmeeOrgs.Tidy do
 
   @spec edit_bad_names(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def edit_bad_names(%{displaynames: %{"en" => name}} = org) do
-    if String.contains?(name, @service_hints) do
+    if String.contains?(name, @censor) do
 
       new_names = Map.get(org, :displaynames, %{})
       |> Enum.map(fn {k, v} -> {k, String.replace(v, @censor, "") |> String.trim()} end)

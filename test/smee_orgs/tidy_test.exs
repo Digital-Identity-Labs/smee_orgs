@@ -209,7 +209,40 @@ defmodule TidyTest do
   describe "swap_bad_names/1" do
 
     test "displaynames that are actually service names, or just too specific, are swapped with names" do
+      [
+        "Moodle Service",
+        "University Moodle",
+        "SP For Research",
+        "Big University VLE ",
+        "College IdP",
+        "Test Service",
+        " test test",
+        "Service Provider Us",
+        "SSO Service"
+      ]
+      |> Enum.each(
+           fn service_name ->
 
+             %Organization{
+               displaynames: %{
+                 "en" => rname
+               },
+             } = Tidy.swap_bad_names(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => service_name
+                 },
+                 names: %{
+                   "en" => "Maybe a better name"
+                 }
+               }
+             )
+
+             assert "Maybe a better name" == rname
+
+           end
+         )
     end
 
   end
@@ -218,6 +251,31 @@ defmodule TidyTest do
 
     test "displaynames that still contain service words have them removed" do
 
+      %{
+        "Moodle University" => "University",
+        "University Moodle" => "University",
+        "University VLE" => "University"
+      }
+      |> Enum.each(
+           fn {old, new} ->
+
+             %Organization{
+               displaynames: %{
+                 "en" => rname
+               },
+             } = Tidy.edit_bad_names(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => old
+                 }
+               }
+             )
+
+             assert new == rname
+
+           end
+         )
     end
 
   end
@@ -225,7 +283,75 @@ defmodule TidyTest do
   describe "not_provided_by/1" do
 
     test "Displaynames that are 'provided by' should have that removed" do
+      assert %Organization{
+               displaynames: %{
+                 "en" => "the Digital Curation Centre"
+               }
+             } = Tidy.not_provided_by(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => "DMPonline is a data management planning tool provided by the Digital Curation Centre"
+                 }
+               }
+             )
 
+      assert %Organization{
+               displaynames: %{
+                 "en" => "GARR"
+               }
+             } = Tidy.not_provided_by(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => "SP Demo provided by GARR"
+                 }
+               }
+             )
+
+      assert %Organization{
+               displaynames: %{
+                 "en" => "TI Sparkle"
+               }
+             } = Tidy.not_provided_by(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => "Federated Cloud services provided by TI Sparkle"
+                 }
+               }
+             )
+
+      assert %Organization{
+               displaynames: %{
+                 "en" => "University of Parma"
+               }
+             } = Tidy.not_provided_by(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => "Moodle Elly Didattica provided by University of Parma"
+                 }
+               }
+             )
+
+      assert %Organization{
+               displaynames: %{
+                 "en" => "Airbus"
+               }
+             } = Tidy.not_provided_by(
+               %Organization{
+                 noid: "placeholder",
+                 displaynames: %{
+                   "en" => "Jisc geospatial data service provided by Airbus"
+                 }
+               }
+             )
+
+      
+      
+      
+      
     end
 
   end

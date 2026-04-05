@@ -19,7 +19,7 @@ defmodule SmeeOrgs.Tidy do
   @spec dfn_code_names(org :: SmeeOrgs.Organization.t()) :: SmeeOrgs.Organization.t()
   def dfn_code_names(org) do
     if Enum.member?(org.registrars, @dfn) do
-      Map.put(org, :names, Map.get(org, :displaynames))
+      Map.put(org, :names, Map.get(org, :displaynames, %{}))
     else
       org
     end
@@ -41,96 +41,6 @@ defmodule SmeeOrgs.Tidy do
   end
 
   def assume_type(org) do
-    org
-  end
-
-  @spec assume_type_prefix(org :: SmeeOrgs.Organization.t(), prefix :: binary()) :: SmeeOrgs.Organization.t()
-  def assume_type_prefix(org, "University of " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Univerza" <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Universidad " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Universitat " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Universiteit " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Institut" <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Universiti " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Ecole " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Université " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "Univerza " <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_prefix(org, "National " <> _) do
-    %{org | type: :facility}
-  end
-
-  def assume_type_prefix(org, "eduID. " <> _) do
-    %{org | type: :other}
-  end
-
-  def assume_type_prefix(org, _) do
-    org
-  end
-
-  @spec assume_type_rsuffix(org :: SmeeOrgs.Organization.t(), rsuffix :: binary()) :: SmeeOrgs.Organization.t()
-  def assume_type_rsuffix(org, "dtL" <> _)   do
-    %{org | type: :company}
-  end
-
-  def assume_type_rsuffix(org, "CLP" <> _)  do
-    %{org | type: :company}
-  end
-
-  def assume_type_rsuffix(org, "detmiL" <> _)   do
-    %{org | type: :company}
-  end
-
-  def assume_type_rsuffix(org, "cnI" <> _)   do
-    %{org | type: :company}
-  end
-
-  def assume_type_rsuffix(org, ".cnI" <> _)  do
-    %{org | type: :company}
-  end
-
-  def assume_type_rsuffix(org, "HbmG" <> _)  do
-    %{org | type: :company}
-  end
-
-  def assume_type_rsuffix(org, "ytisrevinU" <> _) do
-    %{org | type: :education}
-  end
-
-  def assume_type_rsuffix(org, "yrotarobaL" <> _) do
-    %{org | type: :facility}
-  end
-
-  def assume_type_rsuffix(org, _) do
     org
   end
 
@@ -177,6 +87,103 @@ defmodule SmeeOrgs.Tidy do
   end
 
   def not_provided_by(org) do
+    org
+  end
+
+  #############################################################
+
+
+  @spec assume_type_prefix(org :: SmeeOrgs.Organization.t(), prefix :: binary()) :: SmeeOrgs.Organization.t()
+  defp assume_type_prefix(org, "University of " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Univerza" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Universidad " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Universitat " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Universität " <> _) do
+    %{org | type: :education}
+  end
+  
+  defp assume_type_prefix(org, "Universiteit " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Institut" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Universiti " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Ecole " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Université " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "Univerza " <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_prefix(org, "National " <> _) do
+    %{org | type: :facility}
+  end
+
+  defp assume_type_prefix(org, "eduID." <> _) do
+    %{org | type: :other}
+  end
+
+  defp assume_type_prefix(org, _) do
+    org
+  end
+
+  @spec assume_type_rsuffix(org :: SmeeOrgs.Organization.t(), rsuffix :: binary()) :: SmeeOrgs.Organization.t()
+  defp assume_type_rsuffix(org, "dtL" <> _)   do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "CLP" <> _)  do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "detimiL" <> _)   do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "cnI" <> _)   do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, ".cnI" <> _)  do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "HbmG" <> _)  do
+    %{org | type: :company}
+  end
+
+  defp assume_type_rsuffix(org, "ytisrevinU" <> _) do
+    %{org | type: :education}
+  end
+
+  defp assume_type_rsuffix(org, "yrotarobaL" <> _) do
+    %{org | type: :facility}
+  end
+
+  defp assume_type_rsuffix(org, _) do
     org
   end
 

@@ -23,7 +23,11 @@ defmodule SmeeOrgs.Normalize do
     |> NoidOverrides.builtin()
   end
 
-  @spec lang_map(map :: map()) :: map()
+  @spec lang_map(map :: map() | nil) :: map()
+  def lang_map(nil) do
+    %{}
+  end
+  
   def lang_map(map) do
     map
     |> Enum.map(fn {k, v} -> {lang_key(k), lang_value(v)} end)

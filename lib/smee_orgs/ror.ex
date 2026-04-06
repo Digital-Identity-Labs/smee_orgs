@@ -9,7 +9,7 @@ defmodule SmeeOrgs.ROR do
   @spec get(org :: Organization.t()) :: ROR.Organization.t() | nil
   def get(org) do
     try do
-      Organization.name(org)
+      Organization.displayname(org)
       |> String.replace_trailing("LLC", "") # Too many Lakeland Colleges! Bug in ROR?
       |> ROR.chosen_organization!() ## Bug in ROR package, need to fix then rewrite this.
     rescue

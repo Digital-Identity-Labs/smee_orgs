@@ -63,7 +63,7 @@ defmodule SmeeOrgs.NoidOverrides do
     "deic"
   end
 
-  def prefix("dar_alhekma_university_2") do
+  def prefix("dar_alhekma_university_" <> _) do
     "dar_alhekma_university"
   end
 

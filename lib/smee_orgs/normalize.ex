@@ -2,11 +2,13 @@ defmodule SmeeOrgs.Normalize do
 
   @moduledoc false
 
+  require Logger
+  
   alias SmeeOrgs.NoidOverrides
 
   @punctuation [",", ".", "-", "'", "(", ")", "]", "[", ":", "+", "/", "\\", "’"]
   @company_name_prefixes ~r/\Athe /
-  @company_name_suffixes ~r/\s(inc|ltd|llc|inc|oy|corp|plc|limited|co|sro|ale|sa|ag|bv|nv|ltee|bv|gmbh|sia|pte|pty|as|co ltd|identity_provider|idp|shibboleth|limited, the|the|.com|.net|.org)\Z/
+  @company_name_suffixes ~r/\s(inc|ltd|llc|inc|oy|corp|plc|incorporated|corporation|limited|co|sro|ale|sa|ag|bv|nv|ltee|bv|gmbh|sia|pte|pty|as|co ltd|identity_provider|idp|sp|test|shibboleth|vle|moodle|limited, the|the|.com|.net|.org)\Z/
   @org_types [:education, :healthcare, :company, :archive, :nonprofit, :government, :facility, :other, :unknown]
 
   @spec noid(name :: binary()) :: binary()
@@ -27,7 +29,7 @@ defmodule SmeeOrgs.Normalize do
   def lang_map(nil) do
     %{}
   end
-  
+
   def lang_map(map) do
     map
     |> Enum.map(fn {k, v} -> {lang_key(k), lang_value(v)} end)
@@ -53,7 +55,8 @@ defmodule SmeeOrgs.Normalize do
 
   @spec lang_value(value :: binary()) :: binary()
   def lang_value(value) do
-    String.trim(value)
+    to_string(value)
+    |> String.trim()
   end
 
   @spec url(url :: nil | binary()) :: binary()
@@ -73,6 +76,15 @@ defmodule SmeeOrgs.Normalize do
       String.contains?(url, ".internal") -> nil
       true -> url
     end
+  end
+
+  ## Should actually catch unacceptable schemas some other way TODO
+  def url("mailto:" <> _) do
+    nil
+  end
+
+  def url("ldap:" <> _) do
+    nil
   end
 
   def url(invalid_url) do
@@ -104,17 +116,23 @@ defmodule SmeeOrgs.Normalize do
   end
 
   @spec type(type :: atom() | binary()) :: atom()
-  def type(type) when is_binary(type) do
-    String.to_existing_atom(type)
-    |> type()
-  end
-
   def type(type) when is_atom(type) and type in @org_types do
     type
   end
 
+  def type(type) when is_binary(type) do
+    try do
+      String.to_existing_atom(type)
+      |> type()
+    rescue
+      _ -> Logger.warning "Unknown Organization type '#{type}'"
+           :unknown
+    end
+  end
+
   def type(type) do
-    raise "Organization type '#{type}' is unknown!}"
+    Logger.warning "Unknown Organization type '#{type}'"
+    :unknown
   end
 
   @spec types() :: list(atom())

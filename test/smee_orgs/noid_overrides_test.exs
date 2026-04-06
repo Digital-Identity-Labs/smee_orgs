@@ -28,7 +28,7 @@ defmodule NoidOverridesTest do
     end
 
     test "overrides various Eduroam" do
-      assert "XXX" = NoidOverrides.builtin("XXX")
+      assert "eduroam" = NoidOverrides.builtin("eduroam_item")
     end
 
     test "overrides various Ethiopian Education and Research Network" do

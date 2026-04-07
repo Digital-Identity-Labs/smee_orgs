@@ -36,7 +36,7 @@ defmodule SmeeOrgs.Filter do
   @spec contains(enum :: Enumerable.t(), text :: binary(), bool :: boolean()) :: Enumerable.t()
   def contains(enum, text, bool \\ true) do
     enum
-    |> Enum.filter(fn o -> (String.contains?(Organization.aggregated_text(o), text)) == bool end)
+    |> Enum.filter(fn o -> (String.contains?(Organization.aggregated_text(o), String.downcase("#{text}"))) == bool end)
   end
 
   @doc """

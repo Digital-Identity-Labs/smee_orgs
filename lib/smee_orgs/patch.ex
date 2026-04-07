@@ -1,7 +1,7 @@
 defmodule SmeeOrgs.Patch do
 
   @moduledoc false
-
+  
   @patch_defaults %{
     "match" => "noid",
     "priority" => 100
@@ -10,6 +10,7 @@ defmodule SmeeOrgs.Patch do
   alias __MODULE__
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Client
+  alias SmeeOrgs.Normalize
 
   @spec patch!(enum :: Enumerable.t(), data :: :default | list() | map() | binary()) :: Enumerable.t()
   def patch!(enum, :default) do
@@ -97,11 +98,14 @@ defmodule SmeeOrgs.Patch do
                        |> Map.get(org.noid, [])
                        |> Enum.map(fn patch -> patch["patch"] end)
 
-    Enum.reduce(
+    patched = Enum.reduce(
       matching_patches,
       org,
       fn patch, _acc -> Jsonpatch.apply_patch!(patch, org, keys: :atoms) end
-    ) # ?? Problem?
+    )
+     
+    %{patched | type: Normalize.type(patched.type) }
+    
 
   end
 

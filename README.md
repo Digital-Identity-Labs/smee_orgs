@@ -1,12 +1,12 @@
 # SmeeOrgs
 <img src="https://raw.githubusercontent.com/Digital-Identity-Labs/smee/a897646d54d5c6c7ef852b11a0e5d64611147580/logo.png" width="128px" alt="Smee Logo" style="float: right; margin: 6px;">
 
-`SmeeOrgs` is an extension to [Smee](https://github.com/Digital-Identity-Labs/smee) for extracting and processing the
-Organization information inside SAML entity metadata. 
+`SmeeOrgs` is an extension to [Smee](https://github.com/Digital-Identity-Labs/smee) dedicated to extracting and processing
+the Organization information inside SAML entity metadata. Rather niche but possibly useful.
 
 Organisation data is not a load-bearing aspect of SAML metadata - it's not used during authentication, and nothing breaks
-if it's incorrect. It can also be difficult for federations to manage and maintain. SmeeOrgs offers feature that hopefully
-fix and improve the organisation data and make it more useful.
+if it's incorrect. It can also be difficult for federations to manage and maintain. SmeeOrgs offers features that hopefully
+fix and improve this organisation data and make it more useful.
 
 [![Hex pm](http://img.shields.io/hexpm/v/smee_orgs.svg?style=flat)](https://hex.pm/packages/smee_orgs)
 [![API Docs](https://img.shields.io/badge/api-docs-yellow.svg?style=flat)](http://hexdocs.pm/smee_orgs/)
@@ -17,7 +17,7 @@ fix and improve the organisation data and make it more useful.
 ## Features
 
 * Extract organization data from Smee entity structs and metadata, as lists or streams.
-* Assign identifers to organizations
+* Assign simple identifers to organizations
 * Easily filter lists of organisations by type, tags, and other criteria.
 * Merge, deduplicate and aggregate duplicated records
 * Enhance organisation records with [ROR](https://ror.org) data
@@ -33,14 +33,14 @@ Two other modules may be of use:
 
 ## Problems and Possible Solutions 
 
-* Identifiers: There is no single strong identifer in the SAML fragment for Organisation data - names and URLs are localized 
-* Duplication: Organization data is included with each Entity so it's naturally duplicated if an Organization has more 
-  than one IdP or SP. If you want to assemble more structured data, mapping services to service-providing organisations,
-  then you need to deduplicate it.
-* Inconsistency: Organization data is normally added to federations piecemeal - the same organization may be described 
+* **Identifiers**: There is no single strong identifer in the SAML fragment for Organisation data - names and URLs are localized 
+* **Duplication**: Organization data is included with each Entity so it's naturally duplicated if an Organization has more 
+  than one IdP or SP. If you want to assemble more structured and normalized data, maybe mapping services to 
+  service-providing organisations, then you need to deduplicate it.
+* **Inconsistency**: Organization data is normally added to federations piecemeal - the same organization may be described 
   with different details. Federations may describe the same organisation with different details, and organisations may
   not provide consistent descriptions of themselves.
-* Obsolescence: Organizations change over time, they rename or merge, change their websites and update branding. There's
+* **Obsolescence**: Organizations change over time, they rename or merge, change their websites and update branding. There's
   no need to contact federations to update organization details (nothing will break) so the data drifts away from reality.
 
 Organisation information in SAML metadata isn't very important - nothing breaks if it contains errors, but because of this
@@ -72,23 +72,23 @@ A single `Smee.Entity` struct can be parsed into a single `SmeeOrgs.Organization
   Smee.MDQ.source("http://mdq.ukfederation.org.uk/")
   |> Smee.MDQ.lookup!("https://cern.ch/login")
   |> SmeeOrgs.extract()
-  #=> %SmeeOrgs.Organization{
-#  noid: "cernch",
-#  base_domain: "cern.ch",
-#  names: %{"en" => "cern.ch"},
-#  displaynames: %{"en" => "CERN"},
-#  urls: %{"en" => "http://www.cern.ch/"},
-#  ror: nil,
-#  logo_url: nil,
-#  location: nil,
-#  wikipedia: nil,
-#  country: "CH",
-#  entity_uris: ["https://cern.ch/login"],
-#  domains: ["www.cern.ch"],
-#  tags: [],
-#  type: :unknown,
-#  registrars: ["http://rr.aai.switch.ch/"],
-#  federations: ["http://rr.aai.switch.ch/", "https://cern.ch/login"]
+#=> %SmeeOrgs.Organization{
+#     noid: "cernch",
+#     base_domain: "cern.ch",
+#     names: %{"en" => "cern.ch"},
+#     displaynames: %{"en" => "CERN"},
+#     urls: %{"en" => "http://www.cern.ch/"},
+#     ror: nil,
+#     logo_url: nil,
+#     location: nil,
+#     wikipedia: nil,
+#     country: "CH",
+#     entity_uris: ["https://cern.ch/login"],
+#     domains: ["www.cern.ch"],
+#     tags: [],
+#     type: :unknown,
+#     registrars: ["http://rr.aai.switch.ch/"],
+#     federations: ["http://rr.aai.switch.ch/", "https://cern.ch/login"]
 #  }
 
 ```
@@ -116,7 +116,7 @@ raw_orgs = Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadat
        |> SmeeOrgs.Filter.country("jp")
 ```
 
-### Applying all processing to organizations in a federation, then dumping to a JSON file 
+### Applying all processing functions to organizations in a federation, then dumping to a JSON file 
 After creating Organization structs you can pass them to various functions for processing and hopefully improving the
 data. 
 
@@ -151,7 +151,7 @@ please make sure you read the documentation for installing Smee before using Sme
 
 ## Alternatives and Sources
 
-I normally list other projects that provide similar functionality, but in this case I can't think of any. Please tell me
+I normally list other projects that provide similar functionality but in this case I can't think of any. Please tell me
 if you know of similar projects and I will include them here.
 
 

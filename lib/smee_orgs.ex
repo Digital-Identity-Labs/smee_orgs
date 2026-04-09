@@ -6,7 +6,7 @@ defmodule SmeeOrgs do
   alias SmeeOrgs.Process
 
   @spec new(name_id :: binary(), domain :: binary(), data :: map() | keyword()) :: Organization.t()
-  def new(name_id, domain, data) do
+  def new(name_id, domain, data \\ %{}) do
     Organization.new(name_id, domain, data)
   end
 
@@ -60,7 +60,6 @@ defmodule SmeeOrgs do
   def add_logos(enum, opts \\ [force: false]) do
     Process.add_logos(enum, opts)
   end
-
   
   @spec patch!(enum :: Enumerable.t()) :: Enumerable.t()
   def patch!(enum) do

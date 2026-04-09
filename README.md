@@ -1,4 +1,5 @@
 # SmeeOrgs
+<img src="https://raw.githubusercontent.com/Digital-Identity-Labs/smee/a897646d54d5c6c7ef852b11a0e5d64611147580/logo.png" width="128px" alt="Smee Logo" style="float: right; margin: 6px;">
 
 `SmeeOrgs` is an extension to [Smee](https://github.com/Digital-Identity-Labs/smee) for extracting and processing the
 Organization information inside SAML entity metadata. 

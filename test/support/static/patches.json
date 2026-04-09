@@ -1,0 +1,47 @@
+[
+  {
+    "when": "mimoto",
+    "patch": [
+      {"path": "/location", "value": "Manchester", "op": "replace"},
+      {"path": "/logo_url", "value": "https://mimoto.co.uk/assets/images/mimoto.png", "op": "replace"},
+      {"path": "/type", "value": "company", "op": "replace"}
+    ]
+  },
+  {
+    "when": "jisc",
+    "patch": [
+      {"path": "/base_domain", "value": "jisc.ac.uk", "op": "replace"},
+      {"path": "/location", "value": "Bristol", "op": "replace"},
+      {"path": "/wikipedia", "value": "https://en.wikipedia.org/wiki/Jisc", "op": "replace"},
+      {"path": "/type", "value": "other", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Jisc"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Jisc"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://jisc.ac.uk"
+      }, "op": "add"}
+    ]
+  },
+  {
+    "when": "digital_identity",
+    "patch": [
+      {"path": "/base_domain", "value": "digitalidentity.ltd.uk", "op": "replace"},
+      {"path": "/location", "value": "Manchester", "op": "replace"},
+      {"path": "/country", "value": "GB", "op": "replace"},
+      {"path": "/type", "value": "company", "op": "replace"},
+      {"path": "/displaynames", "value": {
+        "en": "Digital Identity Ltd"
+      }, "op": "add"},
+      {"path": "/names", "value": {
+        "en": "Digital Identity Ltd"
+      }, "op": "add"},
+      {"path": "/urls", "value": {
+        "en": "https://digitalidentity.ltd.uk"
+      }, "op": "add"}
+    ]
+  }
+]
+

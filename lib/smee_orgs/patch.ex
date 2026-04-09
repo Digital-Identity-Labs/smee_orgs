@@ -4,7 +4,8 @@ defmodule SmeeOrgs.Patch do
   
   @patch_defaults %{
     "match" => "noid",
-    "priority" => 100
+    "priority" => 100,
+    "patch" => []
   }
 
   alias __MODULE__
@@ -40,15 +41,23 @@ defmodule SmeeOrgs.Patch do
 
   @spec diff!(org1 :: Jsonpatch.Types.json_container(), org2 :: Jsonpatch.Types.json_container()) :: map()
   def diff!(org1, org2) do
-    patches = Jsonpatch.diff(org1, org2, keys: :atoms)
-    %{@patch_defaults | patch: patches}
+    patches = Jsonpatch.diff(Map.from_struct(org1), Map.from_struct(org2))
+    %{@patch_defaults | "patch" => patches}
   end
 
-  @spec fetch!(enum :: Enumerable.t()) :: Enumerable.t()
+  @spec fetch!(location :: binary()) :: list()
   def fetch!("http" <> _ = location) do
-    Client.get!(location)
+    data = Client.get!(location)
+    if is_binary(data), do: Jason.decode!(data), else: data # work around badly typed responses
   end
 
+  def fetch!("file:" <> _ = location) do
+    location
+    |> String.replace_leading("file:", "")
+    |> File.read!()
+    |> Jason.decode!()
+  end
+  
   def fetch!(location) do
     File.read!(location)
     |> Jason.decode!()

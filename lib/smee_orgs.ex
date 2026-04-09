@@ -66,8 +66,7 @@ defmodule SmeeOrgs do
   def patch!(enum) do
     Patch.patch!(enum, Patch.default_patch_location())
   end
-
- 
+  
   @spec patch!(enum :: Enumerable.t(), source :: binary(), opts :: keyword()) :: Enumerable.t()
   def patch!(enum, source, _opts \\ []) do
     Patch.patch!(enum, source)

@@ -2,6 +2,8 @@ defmodule SmeeOrgs.Utils do
 
   @moduledoc false
 
+  require Logger
+  
   alias SmeeOrgs.TldToCc
   alias SmeeOrgs.Normalize
 
@@ -38,7 +40,7 @@ defmodule SmeeOrgs.Utils do
       bits = URI.new!(url)
       bits.host || nil
     rescue
-      oops -> IO.warn("Cannot parse url #{url}, returning nil")
+      oops -> Logger.warning("Cannot parse url #{url}, returning nil")
               nil
     end
   end

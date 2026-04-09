@@ -110,7 +110,7 @@ defmodule SmeeOrgs.Normalize do
     case Domainatrex.parse(domain) do
       {:ok, bits} -> Enum.join([bits[:domain], bits[:tld]], ".")
       {:error, msg} ->
-        IO.warn "Invalid domain for organization: #{domain}: #{msg}!"
+        Logger.warning "Invalid domain for organization: #{domain}: #{msg}!"
         nil
     end
   end

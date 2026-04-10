@@ -5,7 +5,7 @@ defmodule SmeeOrgs.MixProject do
     [
       app: :smee_orgs,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       description: "SAML metadata Organization extension for Smee",
       package: package(),
@@ -60,7 +60,7 @@ defmodule SmeeOrgs.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev], runtime: false},
       {:doctor, "~> 0.21", only: :dev, runtime: false},
       {:json_comparator, "~> 1.0", only: :test, runtime: false},
-      {:table_rex, "~> 4.1"}
+      {:table_rex, "~> 4.1", only: [:dev, :test]}
     ]
   end
 

@@ -19,7 +19,7 @@ defmodule SmeeOrgs.MixProject do
       cli: cli(),
       docs: [
         main: "readme",
-        # logo: "path/to/logo.png",
+        logo: "logo.png",
         extras: ["README.md", "LICENSE"]
       ],
       dialyzer: [

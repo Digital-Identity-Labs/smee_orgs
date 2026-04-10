@@ -7,9 +7,9 @@ defmodule SmeeOrgs.Organization do
   @type t :: %__MODULE__{
                noid: binary(),
                base_domain: nil | binary(),
-               names: map(),
-               displaynames: map(),
-               urls: map(),
+               names: nil | map(),
+               displaynames: nil | map(),
+               urls: nil | map(),
                ror: nil | binary(),
                logo_url: nil | binary(),
                location: nil | binary(),

@@ -8,6 +8,14 @@ defmodule ExtractTest do
   @entity Smee.Metadata.entities(@valid_metadata)
           |> List.first()
 
+  @no_org_metadata "test/support/static/no_org.xml"
+                   |> Smee.Source.new()
+                   |> Smee.Fetch.local!()
+
+  @no_org_entity Smee.Metadata.entities(@no_org_metadata)
+          |> List.first()
+
+
   @org %SmeeOrgs.Organization{
     base_domain: "ukfederation.org.uk",
     country: "GB",
@@ -87,6 +95,28 @@ defmodule ExtractTest do
              } = Extract.one(@entity)
     end
 
+    test "if no organization data is present in the Entity, return the unknown record" do
+
+      assert %SmeeOrgs.Organization{
+               base_domain: nil,
+               country: "ZZ",
+               displaynames: %{},
+               domains: [],
+               entity_uris: ["https://indiid.net/idp/shibboleth"],
+               federations: ["http://ukfederation.org.uk", "https://indiid.net/idp/shibboleth"],
+               location: nil,
+               logo_url: nil,
+               names: %{},
+               noid: "unknown",
+               registrars: ["http://ukfederation.org.uk"],
+               ror: nil,
+               tags: [],
+               type: :unknown,
+               urls: %{},
+               wikipedia: nil
+             } = Extract.one(@no_org_entity)
+    end
+    
   end
 
   describe "stream/2" do

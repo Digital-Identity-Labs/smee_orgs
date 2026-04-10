@@ -66,7 +66,7 @@ Please see the contributing section below if you have suggestions or fixes you w
 ## Examples
 
 ### Extracting an Organization struct from an Entity struct 
-A single `Smee.Entity` struct can be parsed into a single `SmeeOrgs.Organization` struct using `SmeeOrgs.extract/2`
+A single `Smee.Entity` struct can be parsed into a single `SmeeOrgs.Organization` struct using `SmeeOrgs.extract/1`
 
 ```elixir
   Smee.MDQ.source("http://mdq.ukfederation.org.uk/")
@@ -94,13 +94,13 @@ A single `Smee.Entity` struct can be parsed into a single `SmeeOrgs.Organization
 ```
 
 ### Parsing all organizations in a federation into a list
-`SmeeOrgs.list/2` and `SmeeOrgs.Stream/2` will accept a `Smee.Metadata` struct and process all entities into Organization
+`SmeeOrgs.list/2` and `SmeeOrgs.stream/2` will accept a `Smee.Metadata` struct and process all entities into Organization
 structs.
 
 ```elixir
-raw_orgs = Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
-       |> Smee.fetch!()
-       |> SmeeOrgs.list()
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> SmeeOrgs.list()
 ```
 
 ### Filtering: only parsing organization data for SPs into a list, then selecting Japanese organizations
@@ -108,12 +108,12 @@ If you want to select which entities to extract Organizations from, filter an en
 SmeeOrgs also has its own filter module that can be used to select Organization structs.
 
 ```elixir
-raw_orgs = Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
-       |> Smee.fetch!()
-       |> Smee.Metadata.stream_entities()
-       |> Smee.Filter.sps()
-       |> SmeeOrgs.list()
-       |> SmeeOrgs.Filter.country("jp")
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> Smee.Metadata.stream_entities()
+|> Smee.Filter.sp()
+|> SmeeOrgs.list()
+|> SmeeOrgs.Filter.country("jp")
 ```
 
 ### Applying all processing functions to organizations in a federation, then dumping to a JSON file 

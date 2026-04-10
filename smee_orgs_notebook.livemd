@@ -1,0 +1,49 @@
+# SmeeOrgs Notebook
+
+```elixir
+Mix.install([{:smee_orgs, git: "https://github.com/Digital-Identity-Labs/smee_orgs.git"}])
+```
+
+## Extracting an organization from an Entity
+
+```elixir
+ Smee.MDQ.source("http://mdq.ukfederation.org.uk/")
+ |> Smee.MDQ.lookup!("https://cern.ch/login")
+ |> SmeeOrgs.extract()
+```
+
+## Parsing all organizations in a federation into a list
+
+```elixir
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> SmeeOrgs.list()
+```
+
+## Filtering
+
+Only parsing organization data for SPs into a list, then selecting Japanese organizations
+
+```elixir
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> Smee.Metadata.stream_entities()
+|> Smee.Filter.sp()
+|> SmeeOrgs.list()
+|> SmeeOrgs.Filter.country("jp")
+```
+
+## Applying all processing functions to organizations in a federation, then dumping to a JSON file
+
+This can take a long time due to many ROR API lookup - `SmeeOrgs.enhance/2` makes them one at a time to ease pressure on the ROR servers. The results are cached locally, so later requests are slighly quicker. You can greatly increase the speed by breaking up your list or stream of Organizations into chunks and enhancing them at the same time.
+
+```elixir
+Smee.source("http://metadata.ukfederation.org.uk/ukfederation-metadata.xml")
+|> Smee.fetch!()
+|> SmeeOrgs.list()
+|> SmeeOrgs.aggregate()
+|> SmeeOrgs.enhance()
+|> SmeeOrgs.patch!()
+|> SmeeOrgs.add_logos()
+|> SmeeOrgs.dump("organizations.json")
+```

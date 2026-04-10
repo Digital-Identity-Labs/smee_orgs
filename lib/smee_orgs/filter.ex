@@ -1,38 +1,84 @@
 defmodule SmeeOrgs.Filter do
 
+  @moduledoc """
+  A collection of simple filters to select organizations by various criteria
+    
+  These are similar to filters in other Smee packages. You should use the `Smee.Filter` module to filter
+    at the Entity level, as these will only filter Organizations.
+  """
+  
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Organization
 
+  @doc """
+  Filters a stream of organizations to include or exclude those that have the specified ID (or IDs).
+
+  This function will accept a single ID as a string, or a list of strings.
+
+  The filter is positive by default but can be inverted by specifying `false`
+  """
   @spec noid(enum :: Enumerable.t(), noids :: binary() | list(binary()), bool :: boolean()) :: Enumerable.t()
   def noid(enum, noids, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (Enum.member?(List.wrap(noids), o.noid)) == bool end)
   end
 
+  @doc """
+  Filters a stream of organizations to include or exclude those that have the specified type. 
+
+  The filter is positive by default but can be inverted by specifying `false`
+  """
   @spec type(enum :: Enumerable.t(), type :: binary() | atom(), bool :: boolean()) :: Enumerable.t()
   def type(enum, type, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (Normalize.type(type) == o.type) == bool end)
   end
 
+  @doc """
+  Filters a stream of organizations to include or exclude those that have the specified country.
+
+  Countries are specified using ISO Alpha-2 letter codes. Be aware of unusual country codes that do not
+    match the country codes used in domain names, such as the UK which will be "GB".
+
+  The filter is positive by default but can be inverted by specifying `false`
+  """
   @spec country(enum :: Enumerable.t(), country :: binary() | atom(), bool :: boolean()) :: Enumerable.t()
   def country(enum, country, bool \\ true) do
     enum
     |> Enum.filter(fn o -> (String.upcase("#{country}") == o.country) == bool end)
   end
 
+  @doc """
+  Filters a stream of organizations to include or exclude those that have the specified domain.  
+
+  The filter is positive by default but can be inverted by specifying `false`
+  """
   @spec domain(enum :: Enumerable.t(), domain :: binary(), bool :: boolean()) :: Enumerable.t()
   def domain(enum, domain, bool \\ true) do
     enum
     |> Enum.filter(fn o -> Enum.member?(Organization.domains(o), domain) == bool end)
   end
 
+  @doc """
+  Filters a stream of organizations to include or exclude those that have the specified language.
+
+  Specify the language as a two character ISO code. Unknown countries can be specified with "ZZ"
+
+  The filter is positive by default but can be inverted by specifying `false`
+  """
   @spec lang(enum :: Enumerable.t(), lang :: binary(), bool :: boolean()) :: Enumerable.t()
   def lang(enum, lang, bool \\ true) do
     enum
     |> Enum.filter(fn o -> String.downcase("#{lang}") in Organization.langs(o) == bool end)
   end
 
+  @doc """
+  Filters a stream of organizations to include or exclude those that have the specified text.
+
+  Text can be anywhere in the organisation struct.
+
+  The filter is positive by default but can be inverted by specifying `false`
+  """
   @spec contains(enum :: Enumerable.t(), text :: binary(), bool :: boolean()) :: Enumerable.t()
   def contains(enum, text, bool \\ true) do
     enum

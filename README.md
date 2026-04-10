@@ -42,6 +42,8 @@ Two other modules may be of use:
   not provide consistent descriptions of themselves.
 * **Stale data**: Organizations change over time, they rename or merge, change their websites and update branding. There's
   no need to contact federations to update organization details (nothing will break) so the data drifts away from reality.
+* **Legacy workarounds**: Before MDUI data could be included in metadata it was common to use Organisation data to describe
+      the service, not the organization. Many of these remain in metadata today.
 
 Organisation information in SAML metadata isn't very important - nothing breaks if it contains errors, but because of this
 errors can gradually acrue over time until making any use of it all may be difficult.

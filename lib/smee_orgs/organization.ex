@@ -1,5 +1,10 @@
 defmodule SmeeOrgs.Organization do
 
+  @moduledoc """
+  A struct and helper modules for working with SAML metadata organizations
+  
+  """
+  
   alias __MODULE__
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
@@ -42,7 +47,8 @@ defmodule SmeeOrgs.Organization do
     registrars: [],
     federations: []
   ]
-
+  
+  @doc false
   @spec new(name_id :: binary(), domain :: binary(), data :: map() | keyword()) :: Organization.t()
   def new(name_id, domain, data \\ %{}) do
 
@@ -69,18 +75,33 @@ defmodule SmeeOrgs.Organization do
     
   end
 
+  @doc """
+  Returns a name for the Organization. A preferred language can be requested.
+  
+  If no language is specified English is used if available, otherwise any other name may be chosen.
+  """
   @spec name(org :: Organization.t(), lang :: binary()) :: binary()
   def name(org, lang \\ "en") do
     Map.get(org, :names, %{})
     |> Utils.select_lang(lang)
   end
 
+  @doc """
+  Returns a displayname for the Organization. A preferred language can be requested.
+  
+  If no language is specified English is used if available, otherwise any other name may be chosen.
+  """
   @spec displayname(org :: Organization.t(), lang :: binary()) :: binary()
   def displayname(org, lang \\ "en") do
     Map.get(org, :displaynames, %{})
     |> Utils.select_lang(lang)
   end
 
+  @doc """
+  Returns the informational URL for an Organization. A preferred language can be requested.
+  
+  If no language is specified English is used if available, otherwise any other name may be chosen.
+  """
   @spec url(org :: Organization.t(), lang :: binary()) :: binary()
   def url(org, lang \\ "en") do
     Map.get(org, :urls, %{})
@@ -89,6 +110,11 @@ defmodule SmeeOrgs.Organization do
     |> Utils.select_lang(lang)
   end
 
+  @doc """
+  Returns a block of text gathered from various fields of the Organization structure.
+  
+  This text is useful for indexing and searching structs, and is used by `SmeeOrgs.Filter.contains/3`
+  """
   @spec aggregated_text(org :: Organization.t()) :: binary()
   def aggregated_text(org) do
     [
@@ -107,6 +133,11 @@ defmodule SmeeOrgs.Organization do
     |> Enum.join(" ")
   end
 
+  @doc """
+  Lists the language codes used in the Organization record.
+  
+  The same language codes might not be used in all multi-language fields.
+  """
   @spec langs(org :: Organization.t()) :: list(binary())
   def langs(org) do
     [Map.keys(org.names), Map.keys(org.displaynames), Map.keys(org.urls)]
@@ -115,6 +146,11 @@ defmodule SmeeOrgs.Organization do
     |> Enum.sort()
   end
 
+  @doc """
+  Returns a list of tags used in an Organization
+  
+  Tags are strings so that more accessible camel-cased tags can be used.
+  """
   @spec tags(org :: Organization.t()) :: list(binary())
   def tags(org) do
     (org.tags || [])
@@ -122,6 +158,9 @@ defmodule SmeeOrgs.Organization do
     |> Enum.sort()
   end
 
+  @doc """
+  Lists domains present in the Organization struct
+  """
   @spec domains(org :: Organization.t()) :: list(binary())
   def domains(org) do
     (org.domains || []) ++ [org.base_domain]
@@ -129,6 +168,11 @@ defmodule SmeeOrgs.Organization do
     |> Enum.sort()
   end
 
+  @doc """
+  Lists all acceptable types for Organizations, as atoms.
+  
+  The list of possible types is based on ROR types, plus `:unknown`.
+  """
   @spec types() :: list(atom())
   def types() do
     Normalize.types()

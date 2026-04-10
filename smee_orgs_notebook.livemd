@@ -1,7 +1,7 @@
 # SmeeOrgs Notebook
 
 ```elixir
-Mix.install([{:smee_orgs, git: "https://github.com/Digital-Identity-Labs/smee_orgs.git"}])
+Mix.install([{:smee_orgs, ">= 0.1.0"}, {:rambo, "~> 0.3.4"}])
 ```
 
 ## Extracting an organization from an Entity

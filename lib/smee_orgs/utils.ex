@@ -7,7 +7,7 @@ defmodule SmeeOrgs.Utils do
   alias SmeeOrgs.TldToCc
   alias SmeeOrgs.Normalize
 
-  @spec select_lang(map :: map(), lang :: binary()) :: binary()
+  @spec select_lang(map :: map(), lang :: binary()) :: binary() | nil
   def select_lang(map, lang \\ "en") do
     select_lang_pref(map, lang) || select_lang_default(map) || select_lang_fallback(map)
   end
@@ -71,7 +71,7 @@ defmodule SmeeOrgs.Utils do
     |> extract_domains()
   end
 
-  @spec set_if_empty(current :: nil | binary() | :unknown, possible :: nil | binary() | :unknown) :: binary()
+  @spec set_if_empty(current :: nil | binary() | :unknown, possible :: nil | binary() | :unknown) :: binary() | nil | :unknown
   def set_if_empty(current, possible) when is_nil(current) or current == "" or current == :unknown or current == "ZZ" do
     possible
   end

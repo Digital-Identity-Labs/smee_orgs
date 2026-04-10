@@ -10,8 +10,9 @@ defmodule SmeeOrgs.Extract do
 
   @spec select_name(names :: map(), lang :: binary()) :: binary()
   def select_name(names, lang \\ "en") do
-    names
-    |> Utils.select_lang(lang) || "unknown"
+    name = names
+    |> Utils.select_lang(lang)
+    if is_nil(name), do: "unknown", else: name
   end
 
   @spec select_domain(domains :: map()) :: binary()

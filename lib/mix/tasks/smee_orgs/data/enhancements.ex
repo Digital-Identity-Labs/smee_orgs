@@ -7,6 +7,8 @@ defmodule Mix.Tasks.SmeeOrgs.Data.Enhancements do
   #alias Mix.Shell.IO
   alias SmeeOrgs
 
+  @dialyzer {:nowarn_function, run: 1}
+  
   @impl Mix.Task
   def run(_args) do
 
@@ -36,6 +38,9 @@ defmodule Mix.Tasks.SmeeOrgs.Data.Enhancements do
     |> IO.puts
 
     IO.puts "#{Enum.count(rows)} organizations\n"
+
+
+    :ok
     
   end
 end

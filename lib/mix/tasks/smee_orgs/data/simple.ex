@@ -7,6 +7,8 @@ defmodule Mix.Tasks.SmeeOrgs.Data.Simple do
   #alias Mix.Shell.IO
   alias SmeeOrgs
 
+  @dialyzer {:nowarn_function, run: 1}
+  
   @impl Mix.Task
   def run(_args) do
 
@@ -28,11 +30,12 @@ defmodule Mix.Tasks.SmeeOrgs.Data.Simple do
 
     title = "SmeeOrgs: Extracted simple Organization data"
     header = ["SmeeOrgs NOID", "Displayname"]
-    
+
     TableRex.quick_render!(rows, header, title)
     |> IO.puts
 
     IO.puts "#{Enum.count(rows)} organizations\n"
-    
+
+    :ok
   end
 end

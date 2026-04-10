@@ -52,7 +52,7 @@ defmodule SmeeOrgs.ROR do
 
   end
 
-  @spec location(ror :: ROR.Organization.t()) :: binary()
+  @spec location(ror :: ROR.Organization.t()) :: binary()  | nil
   defp location(%{locations: [%{name: name}]}) do
     name
   end
@@ -61,7 +61,7 @@ defmodule SmeeOrgs.ROR do
     nil
   end
 
-  @spec country(ror :: ROR.Organization.t()) :: binary()
+  @spec country(ror :: ROR.Organization.t()) :: binary() | nil
   defp country(%{locations: [%{country_code: country}]}) do
     country
   end

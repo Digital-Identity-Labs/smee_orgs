@@ -19,9 +19,6 @@ defmodule Mix.Tasks.SmeeOrgs.Gen.DataTests do
            module_name = "Data#{String.capitalize(fed_id)}CompatibilityTest"
            filename = "test/data/data_#{fed_id}_compatibility_test.exs"
 
-           # dam = SmeeFeds.Federation.aggregate(federation)
-           # mdq = SmeeFeds.Federation.mdq(federation)
-
            contents = """
              defmodule #{module_name} do
                use ExUnit.Case, async: false
@@ -56,6 +53,8 @@ defmodule Mix.Tasks.SmeeOrgs.Gen.DataTests do
              File.write!(filename, contents)
            end
 
+           :ok
+           
          end
        )
 

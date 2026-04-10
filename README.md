@@ -40,7 +40,7 @@ Two other modules may be of use:
 * **Inconsistency**: Organization data is normally added to federations piecemeal - the same organization may be described 
   with different details. Federations may describe the same organisation with different details, and organisations may
   not provide consistent descriptions of themselves.
-* **Obsolescence**: Organizations change over time, they rename or merge, change their websites and update branding. There's
+* **Stale data**: Organizations change over time, they rename or merge, change their websites and update branding. There's
   no need to contact federations to update organization details (nothing will break) so the data drifts away from reality.
 
 Organisation information in SAML metadata isn't very important - nothing breaks if it contains errors, but because of this

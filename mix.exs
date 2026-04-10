@@ -22,6 +22,9 @@ defmodule SmeeOrgs.MixProject do
         # logo: "path/to/logo.png",
         extras: ["README.md", "LICENSE"]
       ],
+      dialyzer: [
+        plt_add_apps: [:mix, :smee, :smee_feds]
+      ],
       deps: deps(),
       compilers: Mix.compilers() ++ [:rambo], # Needed until issue fixed in Rambo
       elixirc_paths: elixirc_paths(Mix.env)

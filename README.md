@@ -33,7 +33,7 @@ Two other modules may be of use:
 
 ## Problems and Possible Solutions 
 
-* **Identifiers**: There is no single strong identifer in the SAML fragment for Organisation data - names and URLs are localized 
+* **Identifiers**: There is no single strong identifer in the metadata fragment for Organisation data - names and URLs are localized 
 * **Duplication**: Organization data is included with each Entity so it's naturally duplicated if an Organization has more 
   than one IdP or SP. If you want to assemble more structured and normalized data, maybe mapping services to 
   service-providing organisations, then you need to deduplicate it.
@@ -43,7 +43,7 @@ Two other modules may be of use:
 * **Stale data**: Organizations change over time, they rename or merge, change their websites and update branding. There's
   no need to contact federations to update organization details (nothing will break) so the data drifts away from reality.
 * **Legacy workarounds**: Before MDUI data could be included in metadata it was common to use Organisation data to describe
-      the service, not the organization. Many of these remain in metadata today.
+  the service, not the organization. Many of these remain in metadata today.
 
 Organisation information in SAML metadata isn't very important - nothing breaks if it contains errors, but because of this
 errors can gradually acrue over time until making any use of it all may be difficult.
@@ -189,5 +189,5 @@ SmeeOrgs is Apache 2.0 licensed.
 SmeeOrgs is not endorsed by The Shibboleth Foundation or any of the organizations mentioned within the code or data.
 Digital Identity Ltd is not responsible for any changes you make to organization data using SmeeOrgs, and recommends that
 you build your own patch data for production use.
-The API may change considerably in the first few releases after 0.1.0
-Generated IDs may change between releases of SmeeOrgs before stabilizing
+The API may change considerably in the first few releases after 0.1.0.
+Generated IDs may change between releases of SmeeOrgs before stabilizing.

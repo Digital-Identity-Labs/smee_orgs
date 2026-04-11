@@ -40,7 +40,7 @@ defmodule SmeeOrgs.Utils do
       bits = URI.new!(url)
       bits.host || nil
     rescue
-      oops -> Logger.warning("Cannot parse url #{url}, returning nil")
+      oops -> Logger.warning("Cannot parse url #{url}, returning nil (#{Exception.message(oops)})")
               nil
     end
   end

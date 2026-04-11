@@ -9,7 +9,6 @@ defmodule SmeeOrgs.Patch do
   }
 
   alias __MODULE__
-  alias SmeeOrgs.Organization
   alias SmeeOrgs.Client
   alias SmeeOrgs.Normalize
 

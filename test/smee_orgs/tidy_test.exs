@@ -149,7 +149,7 @@ defmodule TidyTest do
              assert %Organization{
                       type: :company,
                       displaynames: %{
-                        "en" => name
+                        "en" => ^name
                       }
                     } = Tidy.assume_type(
                       %Organization{

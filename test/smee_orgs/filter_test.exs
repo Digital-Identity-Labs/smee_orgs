@@ -2,7 +2,6 @@ defmodule FilterTest do
   use ExUnit.Case
 
   alias SmeeOrgs.Filter
-  alias SmeeOrgs.Organization
 
   @orgs "test/support/static/aggregate.xml"
         |> Smee.Source.new()

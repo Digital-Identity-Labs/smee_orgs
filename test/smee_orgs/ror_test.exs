@@ -3,7 +3,6 @@ defmodule RORTest do
 
   alias SmeeOrgs.Organization
   alias SmeeOrgs.ROR
-  alias ROR.Organization, as: ROROrganization
 
   @cern_org %Organization{
     type: "unknown",

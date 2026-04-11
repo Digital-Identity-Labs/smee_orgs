@@ -36,7 +36,7 @@ defmodule SmeeOrgs.Extract do
     |> Stream.map(fn e -> one(e) end)
   end
 
-  def stream(%Entity{} = entity, opts) do
+  def stream(%Entity{} = entity, _opts) do
     one(entity)
     |> List.wrap()
     |> Stream.concat([])
@@ -53,7 +53,7 @@ defmodule SmeeOrgs.Extract do
     |> stream(opts)
   end
 
-  def stream(other, opts) do
+  def stream(_other, _opts) do
     raise "Cannot extract Organization structs from this input!"
   end
   

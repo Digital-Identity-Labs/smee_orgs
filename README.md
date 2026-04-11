@@ -190,3 +190,4 @@ SmeeOrgs is not endorsed by The Shibboleth Foundation or any of the organization
 Digital Identity Ltd is not responsible for any changes you make to organization data using SmeeOrgs, and recommends that
 you build your own patch data for production use.
 The API may change considerably in the first few releases after 0.1.0
+Generated IDs may change between releases of SmeeOrgs before stabilizing

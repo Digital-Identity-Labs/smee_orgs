@@ -32,12 +32,14 @@ defmodule SmeeOrgs.Client do
   def http_agent_name do
     "SmeeOrgs #{Application.spec(:smee_orgs, :vsn)}"
   end
+
+  @spec retry_jitter(n :: integer()) :: integer()
+  def retry_jitter(n) do
+    trunc(Integer.pow(2, n) * 1000 * (1 - 0.1 * :rand.uniform()))
+  end
   
   ######################################################################################
 
-  @spec retry_jitter(n :: integer()) :: integer()
-  defp retry_jitter(n) do
-    trunc(Integer.pow(2, n) * 1000 * (1 - 0.1 * :rand.uniform()))
-  end
+
 
 end

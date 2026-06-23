@@ -361,4 +361,28 @@ defmodule ProcessTest do
     end
   end
 
+  describe "add_uris/2" do
+
+    test "Adds URIs to records, defaulting to Smee style" do
+      assert [
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:jisc",
+                 noid: "jisc"
+               },
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:digital_identity",
+                 noid: "digital_identity"
+               },
+#               %SmeeOrgs.Organization{
+#                 uri: nil,
+#                 noid: "cernch"
+#               },
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:mimoto",
+                 noid: "mimoto"
+               }
+             ] = Process.add_uris(@orgs)
+    end
+  end
+  
 end

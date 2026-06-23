@@ -2,6 +2,7 @@ defmodule SmeeOrgs.Process do
 
   @moduledoc false
 
+  alias SmeeOrgs.Organization
   alias SmeeOrgs.Utils
   alias SmeeOrgs.ROR
   alias SmeeOrgs.Tidy
@@ -46,6 +47,13 @@ defmodule SmeeOrgs.Process do
     |> Enum.map(fn org -> Logo.add_site_logo_url(org, opts) end)
   end
 
+  @spec add_uris(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
+  def add_uris(enum, opts \\ []) do
+    type = opts[:type] || :smee
+    enum
+    |> Enum.map(fn org -> %{org | uri: Organization.uri(org, type)} end)
+  end
+  
   #################
 
   @spec merge_organizations(base :: SmeeOrgs.Organization.t(), extra :: SmeeOrgs.Organization.t(), opts :: keyword()) :: SmeeOrgs.Organization.t()

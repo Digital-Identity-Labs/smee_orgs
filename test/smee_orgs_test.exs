@@ -654,7 +654,7 @@ defmodule SmeeOrgsTest do
                },
                %SmeeOrgs.Organization{
                  noid: "cernch",
-            #     ror: "https://ror.org/01ggx4157",
+                 #     ror: "https://ror.org/01ggx4157",
                  ror: nil,
                },
                %SmeeOrgs.Organization{
@@ -690,6 +690,30 @@ defmodule SmeeOrgsTest do
     end
   end
 
+  describe "add_uris/2" do
+
+    test "Adds URIs to records, defaulting to Smee style" do
+      assert [
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:jisc",
+                 noid: "jisc"
+               },
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:digital_identity",
+                 noid: "digital_identity"
+               },
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:cernch",
+                 noid: "cernch"
+               },
+               %SmeeOrgs.Organization{
+                 uri: "smee:org:noid:mimoto",
+                 noid: "mimoto"
+               }
+             ] = SmeeOrgs.add_uris(@orgs)
+    end
+  end
+
   describe "patch!/1" do
 
     test "can patch orgs with the default data" do
@@ -698,7 +722,9 @@ defmodule SmeeOrgsTest do
                  base_domain: "jisc.ac.uk",
                  country: "GB",
                  location: "Bristol",
-                 names: %{"en" => "Jisc"},
+                 names: %{
+                   "en" => "Jisc"
+                 },
                  noid: "jisc",
                  wikipedia: "https://en.wikipedia.org/wiki/Jisc"
                },
@@ -709,7 +735,9 @@ defmodule SmeeOrgsTest do
                %SmeeOrgs.Organization{
                  base_domain: "cern.ch",
                  country: "CH",
-                 displaynames: %{"en" => "CERN"},
+                 displaynames: %{
+                   "en" => "CERN"
+                 },
                  noid: "cernch",
                },
                %SmeeOrgs.Organization{
@@ -719,7 +747,7 @@ defmodule SmeeOrgsTest do
                }
              ] = SmeeOrgs.patch!(@orgs)
     end
-    
+
   end
 
   describe "patch!/3" do

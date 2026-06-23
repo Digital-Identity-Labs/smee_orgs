@@ -178,6 +178,15 @@ defmodule SmeeOrgs do
   end
 
   @doc """
+  Adds a URI-based ID to the Organization struct 
+  
+  """
+  @spec add_uris(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
+  def add_uris(enum, opts \\ []) do
+    Process.add_uris(enum, opts)
+  end
+  
+  @doc """
   Applies the default patches to a list of Organizations.
   
   These patches are absolutely not guaranteed to fix all issues or even to not add any, but they should help. For

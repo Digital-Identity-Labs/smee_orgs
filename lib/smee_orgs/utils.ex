@@ -104,5 +104,5 @@ defmodule SmeeOrgs.Utils do
   def domain_to_country(domain) do
     TldToCc.domain_to_country(domain)
   end
-
+  
 end

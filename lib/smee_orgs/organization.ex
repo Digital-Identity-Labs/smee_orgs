@@ -4,13 +4,14 @@ defmodule SmeeOrgs.Organization do
   A struct and helper modules for working with SAML metadata organizations
   
   """
-  
+
   alias __MODULE__
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Utils
 
   @type t :: %__MODULE__{
                noid: binary(),
+               uri: nil | binary(),
                base_domain: nil | binary(),
                names: nil | map(),
                displaynames: nil | map(),
@@ -31,6 +32,7 @@ defmodule SmeeOrgs.Organization do
   @derive Jason.Encoder
   defstruct [
     :noid,
+    :uri,
     :base_domain,
     :names,
     :displaynames,
@@ -47,7 +49,7 @@ defmodule SmeeOrgs.Organization do
     registrars: [],
     federations: []
   ]
-  
+
   @doc false
   @spec new(name_id :: binary(), domain :: binary(), data :: map() | keyword()) :: Organization.t()
   def new(name_id, domain, data \\ %{}) do
@@ -72,7 +74,7 @@ defmodule SmeeOrgs.Organization do
       registrars: if(data[:registrars], do: data[:registrars], else: []),
       federations: if(data[:federations], do: data[:federations], else: []),
     }
-    
+
   end
 
   @doc """
@@ -166,6 +168,45 @@ defmodule SmeeOrgs.Organization do
     (org.domains || []) ++ [org.base_domain]
     |> Enum.uniq()
     |> Enum.sort()
+  end
+
+  @doc """
+  Returns a URI ID for the organization
+  
+  Unlike Entities and Federations Organizations do not have a single existing public ID, so by default the uri field in Organization
+    structs is nil.
+  
+  If a URI is present that is returned, failing that if a ROR ID is present then that is returned, otherwise a completely arbitrary Smee URN-style string is returned
+  """
+  @spec uri(org :: Organization.t()) :: binary()
+  def uri(org) do
+    org.uri || org.ror || uri(org, :smee)
+  end
+
+  @doc """
+  Returns the specified type of URI for the organization.
+  
+  Possible types are:
+    * :smee - `smee:org:noid:ligo`
+    * :ror - `https://ror.org/0518wrr32`
+  
+  If an ID of the specified type is present, or can be created, it is returned, otherwise nil is returned.
+  """
+  @spec uri(org :: Organization.t(), type :: atom()) :: binary() | nil
+  def uri(org, :smee) do
+    if org.noid do
+      "smee:org:noid:#{org.noid}"
+    else
+      nil
+    end
+  end
+
+  def uri(org, :ror) do
+    org.ror
+  end
+
+  def uri(_, type) do
+    raise "Unknown Organization URI type '#{inspect(type)}'!"
   end
 
   @doc """

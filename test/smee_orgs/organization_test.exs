@@ -235,4 +235,36 @@ defmodule OrganizationTest do
     end
   end
 
+  describe "uri/1" do
+
+    test "returns the struct's URI if present" do
+      assert "https://cern.ch" = Organization.uri(%{@cern_org | uri: "https://cern.ch"})
+    end
+
+    test "returns ror URI if own URI is missing" do
+      assert "https://ror.org/01ggx4157" = Organization.uri(%{@cern_org | ror: "https://ror.org/01ggx4157", uri: nil})
+    end
+
+    test "returns Smee URI if own URI and ror URI are missing" do
+      assert "smee:org:noid:cernch" = Organization.uri(%{@cern_org | ror: nil, uri: nil})
+    end
+
+  end
+
+  describe "uri/2" do
+
+    test "returns a smee URI if :smee is the type" do
+      assert "smee:org:noid:cernch" = Organization.uri(@cern_org, :smee)
+    end
+
+    test "returns a ROR URI if :ror is the type, and ROR URI is present" do
+      assert "https://ror.org/01ggx4157" = Organization.uri(%{@cern_org | ror: "https://ror.org/01ggx4157"}, :ror)
+    end
+
+    test "returns nil if :ror is the type, and not present" do
+      assert is_nil(Organization.uri(%{@cern_org | ror: nil}, :ror))
+    end
+    
+  end
+
 end

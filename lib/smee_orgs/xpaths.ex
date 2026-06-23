@@ -13,7 +13,7 @@ defmodule SmeeOrgs.XPaths do
 
     registrars = [extract_ra(List.first(List.wrap(extracted.registration_authority)))]
     federations = Utils.add_to_unique_list(registrars, [metadata_uri])
-
+    
     %{
       entity_uris: [entity_uri],
       names: ml_text_map(extracted.organization_names, :text),
@@ -26,6 +26,14 @@ defmodule SmeeOrgs.XPaths do
   end
 
   @spec ml_text_map(ml_list :: list(), vk :: atom()) :: map()
+  defp ml_text_map([], :text)  do
+    %{"en" => "Unknown"}
+  end
+
+  defp ml_text_map([], :url) do
+    %{}
+  end
+  
   defp ml_text_map(ml_list, vk) do
     ml_list
     |> Enum.map(fn h -> {h[:lang], h[vk]}  end)

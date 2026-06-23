@@ -9,11 +9,12 @@ defmodule SmeeOrgs.ROR do
   @spec get(org :: Organization.t()) :: ROR.Organization.t() | nil
   def get(org) do
     try do
-      Organization.displayname(org)
+      Organization.aggregated_text(org)
       |> String.replace_trailing("LLC", "") # Too many Lakeland Colleges! Bug in ROR?
       |> ROR.chosen_organization!() ## Bug in ROR package, need to fix then rewrite this.
     rescue
-      _ -> nil
+      oops -> IO.puts Exception.message(oops)
+              nil
     end
   end
 
@@ -52,7 +53,7 @@ defmodule SmeeOrgs.ROR do
 
   end
 
-  @spec location(ror :: ROR.Organization.t()) :: binary()  | nil
+  @spec location(ror :: ROR.Organization.t()) :: binary() | nil
   defp location(%{locations: [%{name: name}]}) do
     name
   end

@@ -2,19 +2,34 @@ defmodule SmeeOrgs.ROR do
 
   @moduledoc false
 
+  require Logger
+
   alias SmeeOrgs.Normalize
   alias SmeeOrgs.Organization
   alias SmeeOrgs.Utils
 
   @spec get(org :: Organization.t()) :: ROR.Organization.t() | nil
-  def get(org) do
+  def get(%{ror: nil} = org) do
     try do
       Organization.aggregated_text(org)
       |> String.replace_trailing("LLC", "") # Too many Lakeland Colleges! Bug in ROR?
       |> ROR.chosen_organization!() ## Bug in ROR package, need to fix then rewrite this.
     rescue
-      oops -> IO.puts Exception.message(oops)
-              nil
+      oops ->
+        Logger.error("Could not get ROR record for #{org.noid} so returning nil, error was: #{Exception.message(oops)}")
+        nil
+    end
+  end
+
+  def get(org) do
+    try do
+      ROR.get!(org.ror)
+    rescue
+      oops ->
+        Logger.error(
+          "Could not retrieve ROR record #{org.ror} so searching instead. Error was: #{Exception.message(oops)}"
+        )
+        get(%{org | ror: nil})
     end
   end
 

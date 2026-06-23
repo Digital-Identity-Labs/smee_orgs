@@ -75,7 +75,7 @@ defmodule RORTest do
 
   describe "get/1" do
 
-    test "retrieves a ROR struct matching the organization, if one is available and can be matched" do
+    test "retrieves a ROR struct matching the organization, if one is available and can be matched, and the ror URL is not present already" do
 
       assert %Elixir.ROR.Organization{
                established: 1954,
@@ -86,6 +86,28 @@ defmodule RORTest do
 
     end
 
+    test "retrieves a ROR struct if the ROR URL is already present, and a record is available" do
+
+      assert %Elixir.ROR.Organization{
+               established: 1954,
+               id: "https://ror.org/01ggx4157",
+               status: :active,
+               types: [:facility, :funder]
+             } = ROR.get(%{@cern_org | ror: "https://ror.org/01ggx4157"})
+
+    end
+
+    test "Handles bad or missing ROR URLs in a record by searching" do
+
+      assert %Elixir.ROR.Organization{
+               established: 1954,
+               id: "https://ror.org/01ggx4157",
+               status: :active,
+               types: [:facility, :funder]
+             } = ROR.get(%{@cern_org | ror: "https://ror.org/01ggx4157XXXXXDeliberateErrorForTest"})
+
+    end
+    
     test "returns nil if no ROR record is available, or if matching fails" do
       assert is_nil ROR.get(@mimoto_org)
     end

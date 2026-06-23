@@ -1,5 +1,5 @@
 #!/usr/bin/env elixir
-Mix.install([{:find_site_icon, "== 1.0.1"}])
+Mix.install([{:find_site_icon, "== 1.0.2"}])
 #Mix.install([{:find_site_icon, "== 0.5.0"}])
 
 [

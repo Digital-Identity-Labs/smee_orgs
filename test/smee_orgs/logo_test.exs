@@ -40,6 +40,5 @@ defmodule LogoTest do
     end
 
   end
-
-
+  
 end

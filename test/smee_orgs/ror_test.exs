@@ -8,7 +8,7 @@ defmodule RORTest do
     type: "unknown",
     location: nil,
     names: %{
-      "en" => "cern.ch"
+      "en" => "European Organization for Nuclear Research"
     },
     ror: nil,
     base_domain: "cern.ch",
@@ -16,7 +16,7 @@ defmodule RORTest do
       "en" => "http://www.cern.ch/"
     },
     displaynames: %{
-      "en" => "CERN"
+      "en" => "European Organization for Nuclear Research"
     },
     entity_uris: [
       "https://edugain-sp-dev.web.cern.ch/saml2sp/saml2_backend.xml",
@@ -113,7 +113,7 @@ defmodule RORTest do
                country: "CH",
                displaynames: %{
                  "de" => "Europäische Organisation für Kernforschung",
-                 "en" => "CERN",
+                 "en" => "European Organization for Nuclear Research",
                  "fr" => "Organisation européenne pour la recherche nucléaire"
                },
                domains: ["cern.ch", "www.cern.ch"],
@@ -125,7 +125,7 @@ defmodule RORTest do
                federations: ["http://rr.aai.switch.ch/", "http://ukfederation.org.uk"],
                location: "Geneva",
                names: %{
-                 "en" => "cern.ch"
+                 "en" => "European Organization for Nuclear Research"
                },
                noid: "cernch",
                registrars: ["http://rr.aai.switch.ch/"],
@@ -157,7 +157,7 @@ defmodule RORTest do
       assert %Organization{
                displaynames: %{
                  "de" => "Europäische Organisation für Kernforschung",
-                 "en" => "CERN",
+                 "en" => "European Organization for Nuclear Research",
                  "fr" => "Organisation européenne pour la recherche nucléaire"
                }
              } = ROR.overlay(@cern_org)

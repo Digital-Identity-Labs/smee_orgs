@@ -142,7 +142,7 @@ by adding `smee_orgs` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:smee_orgs, "~> 0.1.0"}
+    {:smee_orgs, "~> 0.1.1"}
   ]
 end
 ```
@@ -150,12 +150,14 @@ end
 SmeeOrgs requires [Smee](https://github.com/Digital-Identity-Labs/smee), which has its own unusual requirements, so
 please make sure you read the documentation for installing Smee before using SmeeOrgs.
 
+> [!WARNING]  
+> Searching for organization logos may cause the low open file limit on Macs to be exceeded. Use `ulimit -n 65536` to
+> work around this.
 
 ## Alternatives and Sources
 
 I normally list other projects that provide similar functionality but in this case I can't think of any. Please tell me
-if you know of similar projects and I will include them here.
-
+if you know of similar projects and I will include them here!
 
 ## Documentation
 

@@ -159,6 +159,9 @@ defmodule SmeeOrgs do
   
   It will lookup ROR details for each Organization. Many publishing organizations will lack ROR records but it
     works better for organizations with IdPs, especially universities. 
+  
+  Passing an option of `ror: false` will skip ROR lookups, which can be slow.
+  
   """
   ## Use extra data to enhance records - ROR, country data, etc. Patch/overlays can go here
   @spec enhance(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()

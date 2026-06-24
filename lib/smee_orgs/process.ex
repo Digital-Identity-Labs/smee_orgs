@@ -9,10 +9,10 @@ defmodule SmeeOrgs.Process do
   alias SmeeOrgs.Logo
 
   @spec enhance(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()
-  def enhance(enum, _opts \\ []) do
+  def enhance(enum, opts \\ []) do
     enum
-    |> Enum.map(fn org -> Tidy.all(org) end)
-    |> Enum.map(fn org -> ROR.overlay(org) end)
+    |> Enum.map(fn org -> if opts[:tidy] == false, do: org, else: Tidy.all(org) end)
+    |> Enum.map(fn org -> if opts[:ror] == false, do: org, else: ROR.overlay(org) end)
   end
 
   @spec uniq(enum :: Enumerable.t(), opts :: keyword()) :: Enumerable.t()

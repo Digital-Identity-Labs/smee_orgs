@@ -23,6 +23,8 @@ New URI functions and an updated dependency for finding logos that may be a brea
 * Metadata with no Organization now returns an Organization struct that has a name and displayname 
   of "Unknown" in English. Previously name and displayname maps were empty.
 * If a ROR URL/ID is already present in an Organization record it is downloaded directly, without searching
+* Passing `ror: false` to `SmeeOrgs.enhance/2` will cause it to skip ROR lookups
+* Searches for matching ROR organizations is now done using aggregated text, not just the displayname
 
 ### Other Changes
 * Some tests have been temporarily disabled or changed to account for CERN search results from ROR changing

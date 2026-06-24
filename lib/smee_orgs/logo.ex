@@ -36,7 +36,8 @@ defmodule SmeeOrgs.Logo do
           user_agent: Client.http_agent_name(),
           cache_dir: Smee.SysCfg.cache_directory(),
           max_redirects: 10,
-          max_retries: 1
+          max_retries: 1,
+          compressed: true
         ]
       ]
     )

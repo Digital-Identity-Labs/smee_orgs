@@ -24,6 +24,7 @@ defmodule SmeeOrgs.Client do
     |> Keyword.merge(user_agent: http_agent_name())
     |> Keyword.merge(cache_dir: Smee.SysCfg.cache_directory())
     |> Keyword.merge(retry_delay: &retry_jitter/1)
+    |> Keyword.merge(decoders: [:json, :json_api])
     |> Req.new()
   end
 

@@ -13,7 +13,6 @@ defmodule Mix.Tasks.SmeeOrgs.Data.Logos do
   def run(_args) do
 
     {:ok, _} = Application.ensure_all_started(:req)
-    {:ok, _} = Application.ensure_all_started(:tesla)
     {:ok, _} = Application.ensure_all_started(:find_site_icon)
 
     source_url = System.get_env("MD_URL") || "http://metadata.ukfederation.org.uk/ukfederation-metadata.xml"

@@ -683,7 +683,7 @@ defmodule SmeeOrgsTest do
                  noid: "cernch"
                },
                %SmeeOrgs.Organization{
-                 logo_url: "https://mimoto.co.uk/apple-touch-icon.png",
+                 logo_url: "https://mimoto.co.uk/apple-touch-icon-180x180.png",
                  noid: "mimoto"
                }
              ] = SmeeOrgs.add_logos(@orgs)

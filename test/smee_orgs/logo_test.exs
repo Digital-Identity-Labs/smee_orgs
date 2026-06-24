@@ -27,7 +27,7 @@ defmodule LogoTest do
     test "If a logo can be found, a URL is set for logo_url in the Organization struct" do
       assert %SmeeOrgs.Organization{
                base_domain: "mimoto.co.uk",
-               logo_url: "https://mimoto.co.uk/apple-touch-icon.png",
+               logo_url: "https://mimoto.co.uk/apple-touch-icon-180x180.png",
              } = Logo.add_site_logo_url(@indiid_org)
     end
 

@@ -6,7 +6,7 @@ defmodule ClientTest do
   describe "get!/2" do
 
     test "fetches the body of HTTP get request, if request works" do
-      assert "<!doctype html>\n<html" <> _ = Client.get!("https://digitalidentity.ltd.uk")
+      assert "OK" <> _ = Client.get!("https://api.ror.org/heartbeat")
     end
 
     test "raises an exception if request doesn't work" do

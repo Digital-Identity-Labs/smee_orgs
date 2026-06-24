@@ -32,7 +32,7 @@ defmodule ProcessTest do
              ] = Process.enhance(@orgs)
     end
 
-    test "runs ROR enhancements on all records" do
+    test "runs ROR enhancements on all records by default" do
       assert [
                %SmeeOrgs.Organization{
                  noid: "jisc",
@@ -53,6 +53,27 @@ defmodule ProcessTest do
              ] = Process.enhance(@orgs)
     end
 
+    test "will skip ROR lookups if passed ror: false as an option" do
+      assert [
+               %SmeeOrgs.Organization{
+                 noid: "jisc",
+                 ror: nil
+               },
+               %SmeeOrgs.Organization{
+                 noid: "digital_identity",
+                 ror: nil,
+               },
+               #               %SmeeOrgs.Organization{
+               #                 noid: "cernch",
+               #                 ror: "https://ror.org/01ggx4157",
+               #               },
+               %SmeeOrgs.Organization{
+                 noid: "mimoto",
+                 ror: nil,
+               }
+             ] = Process.enhance(@orgs, ror: false)
+    end
+    
   end
 
   describe "uniq/2" do
@@ -354,7 +375,7 @@ defmodule ProcessTest do
 #                 noid: "cernch"
 #               },
                %SmeeOrgs.Organization{
-                 logo_url: "https://mimoto.co.uk/apple-touch-icon.png",
+                 logo_url: "https://mimoto.co.uk/apple-touch-icon-180x180.png",
                  noid: "mimoto"
                }
              ] = Process.add_logos(@orgs)

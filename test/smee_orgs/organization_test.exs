@@ -179,7 +179,7 @@ defmodule OrganizationTest do
   describe "aggregated_text/1" do
 
     test "returns a mess of glued-together text fragments" do
-      assert "cernch cern.ch CH https://edugain-sp-dev.web.cern.ch/saml2sp/saml2_backend.xml" <> _ =
+      assert "cernch CERN http://www.cern.ch/ cern.ch CH https://edugain-sp-dev.web.cern.ch/saml2sp/saml2_backend.xml" <> _ =
                Organization.aggregated_text(@cern_org)
     end
 
@@ -195,8 +195,7 @@ defmodule OrganizationTest do
     end
 
   end
-
-
+  
   describe "langs/1" do
 
     test "returns codes for all languages in the Organization record (sorted)" do

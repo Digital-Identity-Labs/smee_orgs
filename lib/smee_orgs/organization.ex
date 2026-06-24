@@ -121,6 +121,7 @@ defmodule SmeeOrgs.Organization do
   def aggregated_text(org) do
     [
       [org.noid],
+      [displayname(org), url(org)],
       [org.base_domain],
       [org.country],
       org.entity_uris,

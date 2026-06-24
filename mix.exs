@@ -4,7 +4,7 @@ defmodule SmeeOrgs.MixProject do
   def project do
     [
       app: :smee_orgs,
-      version: "0.1.1",
+      version: "0.2.0",
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       description: "SAML metadata Organization extension for Smee",
@@ -42,7 +42,7 @@ defmodule SmeeOrgs.MixProject do
   defp deps do
     [
       {:smee, ">= 0.6.0"},
-      {:ror, ">= 0.1.0"},
+      {:ror, ">= 0.1.1"},
       {:sweet_xml, "~> 0.7"},
       {:jason, "~> 1.4"},
       {:domainatrex, "~> 3.2"},

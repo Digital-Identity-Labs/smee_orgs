@@ -12,6 +12,7 @@ defmodule SmeeOrgs.ROR do
   def get(%{ror: nil} = org) do
     try do
       Organization.aggregated_text(org)
+      |> String.slice(0..127)
       |> String.replace_trailing("LLC", "") # Too many Lakeland Colleges! Bug in ROR?
       |> ROR.chosen_organization!() ## Bug in ROR package, need to fix then rewrite this.
     rescue
